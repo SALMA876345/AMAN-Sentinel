@@ -1,0 +1,18 @@
+# Large data, model and result files (GitHub limit is 100 MB per file)
+data/
+results/
+*.zip
+*.safetensors
+*.bin
+*.pt
+
+# Documents and Office temp files
+*.docx
+*.pptx
+~$*
+
+# Python / editor
+__pycache__/
+*.pyc
+.claude/
+.vscode/

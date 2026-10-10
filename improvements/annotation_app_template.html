@@ -1,0 +1,849 @@
+<title>AFVD Annotation Bench</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #f5f7fa;
+    --panel: #ffffff;
+    --panel-2: #eef1f6;
+    --ink: #12151a;
+    --ink-2: #454e5c;
+    --ink-3: #79828f;
+    --rule: #dde3ec;
+    --rule-strong: #c3cbd8;
+    --accent: #1d4e89;
+    --accent-soft: #e5edf7;
+    --real: #1a7f5a;
+    --real-soft: #e2f2eb;
+    --fake: #b3402f;
+    --fake-soft: #fbe8e4;
+    --unver: #8a6110;
+    --unver-soft: #f8eeda;
+    --shadow: 0 1px 2px rgba(18, 21, 26, .06), 0 8px 24px -16px rgba(18, 21, 26, .28);
+  }
+  :root:not([data-theme="light"]) { }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #10131a;
+      --panel: #181c25;
+      --panel-2: #212736;
+      --ink: #e9edf4;
+      --ink-2: #aab3c2;
+      --ink-3: #7c8697;
+      --rule: #2a3140;
+      --rule-strong: #3b4354;
+      --accent: #6fa4e8;
+      --accent-soft: #1c2c45;
+      --real: #56c79a;
+      --real-soft: #14312a;
+      --fake: #e88b7b;
+      --fake-soft: #3a201d;
+      --unver: #d9ab55;
+      --unver-soft: #33280f;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .7);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #10131a;
+    --panel: #181c25;
+    --panel-2: #212736;
+    --ink: #e9edf4;
+    --ink-2: #aab3c2;
+    --ink-3: #7c8697;
+    --rule: #2a3140;
+    --rule-strong: #3b4354;
+    --accent: #6fa4e8;
+    --accent-soft: #1c2c45;
+    --real: #56c79a;
+    --real-soft: #14312a;
+    --fake: #e88b7b;
+    --fake-soft: #3a201d;
+    --unver: #d9ab55;
+    --unver-soft: #33280f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .7);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Archivo, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .wrap { padding-inline: 20px; padding-block: 18px 40px; max-width: 1500px; margin: 0 auto; }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    display: flex; flex-wrap: wrap; align-items: flex-end; gap: 18px 26px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--rule); margin-bottom: 18px;
+  }
+  .brand h1 {
+    margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -.015em;
+    text-wrap: balance;
+  }
+  .brand p { margin: 3px 0 0; color: var(--ink-3); font-size: 12.5px; max-width: 62ch; }
+  .masthead-right { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+  .who {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 5px 8px;
+  }
+  .who span { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-3); }
+  select, .btn {
+    font: inherit; font-size: 13px; color: var(--ink);
+    background: var(--panel); border: 1px solid var(--rule-strong);
+    border-radius: 7px; padding: 6px 11px; cursor: pointer;
+  }
+  .btn:hover, select:hover { border-color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- progress ---------- */
+  .meter { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+  .track {
+    flex: 1 1 260px; height: 8px; border-radius: 999px; background: var(--panel-2);
+    overflow: hidden; display: flex; min-width: 200px;
+  }
+  .track i { display: block; height: 100%; }
+  .track i.real { background: var(--real); }
+  .track i.fake { background: var(--fake); }
+  .track i.unver { background: var(--unver); }
+  .tally { display: flex; gap: 14px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: var(--ink-2); }
+  .tally b { color: var(--ink); font-weight: 500; }
+  .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; vertical-align: baseline; }
+
+  /* ---------- main grid ---------- */
+  .bench { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+
+  .doc {
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 12px;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .doc-head {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    padding: 11px 16px; border-bottom: 1px solid var(--rule); background: var(--panel-2);
+  }
+  .rowid { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .state { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; padding: 3px 8px; border-radius: 999px; font-weight: 600; }
+  .state.todo { background: var(--panel); color: var(--ink-3); border: 1px solid var(--rule-strong); }
+  .state.done { background: var(--accent-soft); color: var(--accent); }
+  .nav-mini { margin-left: auto; display: flex; gap: 6px; }
+
+  .field { padding: 16px; }
+  .field + .field { border-top: 1px dashed var(--rule); }
+  .field > h2 {
+    margin: 0 0 9px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--ink-3); font-weight: 600;
+  }
+  .arabic {
+    font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    direction: rtl; text-align: right; unicode-bidi: isolate;
+    font-size: 17px; line-height: 1.95; color: var(--ink);
+    white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  .arabic.claim { font-weight: 500; font-size: 18.5px; }
+  .scroller { max-height: 340px; overflow-y: auto; padding-inline-start: 4px; }
+  .scroller::-webkit-scrollbar { width: 9px; }
+  .scroller::-webkit-scrollbar-thumb { background: var(--rule-strong); border-radius: 999px; }
+  .len { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; color: var(--ink-3); margin-top: 8px; }
+
+  /* ---------- decision rail ---------- */
+  .rail { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 14px; }
+  @media (max-width: 900px) { .rail { position: static; } }
+  .card { background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; padding: 14px; box-shadow: var(--shadow); }
+  .card > h3 {
+    margin: 0 0 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--ink-3); font-weight: 600;
+  }
+  .card > .ask { margin: 0 0 10px; font-size: 12.5px; color: var(--ink-2); }
+  .opts { display: flex; flex-direction: column; gap: 6px; }
+  .opt {
+    display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+    font: inherit; font-size: 13.5px; color: var(--ink); cursor: pointer;
+    background: var(--panel); border: 1px solid var(--rule-strong); border-radius: 8px; padding: 8px 10px;
+  }
+  .opt:hover { border-color: var(--accent); }
+  .opt kbd {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px;
+    background: var(--panel-2); border: 1px solid var(--rule); border-radius: 4px;
+    padding: 1px 5px; color: var(--ink-3); margin-left: auto;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--rule-strong); }
+  .opt[aria-pressed="true"] { font-weight: 600; }
+  .opt[data-v="Real"][aria-pressed="true"]       { background: var(--real-soft);  border-color: var(--real);  color: var(--real); }
+  .opt[data-v="Fake"][aria-pressed="true"]       { background: var(--fake-soft);  border-color: var(--fake);  color: var(--fake); }
+  .opt[data-v="Unverified"][aria-pressed="true"] { background: var(--unver-soft); border-color: var(--unver); color: var(--unver); }
+  .opt[aria-pressed="true"] .dot { background: currentColor; }
+  .opt[data-g="rel"][aria-pressed="true"], .opt[data-g="faith"][aria-pressed="true"] {
+    background: var(--accent-soft); border-color: var(--accent); color: var(--accent);
+  }
+  textarea {
+    width: 100%; font: inherit; font-size: 13px; color: var(--ink);
+    background: var(--panel-2); border: 1px solid var(--rule-strong); border-radius: 8px;
+    padding: 8px; resize: vertical; min-height: 62px;
+  }
+  .footer-nav { display: flex; gap: 8px; }
+  .footer-nav .btn { flex: 1; text-align: center; }
+
+  /* ---------- codebook ---------- */
+  details.book { background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; }
+  details.book summary { cursor: pointer; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); }
+  details.book[open] summary { margin-bottom: 10px; }
+  .book dl { margin: 0; font-size: 12.5px; color: var(--ink-2); }
+  .book dt { font-weight: 600; color: var(--ink); margin-top: 8px; }
+  .book dd { margin: 2px 0 0; }
+  .book .warn { margin-top: 12px; padding: 9px 10px; border-radius: 8px; background: var(--unver-soft); color: var(--unver); font-size: 12px; }
+
+  .grid-jump { display: grid; grid-template-columns: repeat(auto-fill, minmax(26px, 1fr)); gap: 4px; margin-top: 4px; }
+  .jump {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px;
+    padding: 4px 0; border-radius: 5px; border: 1px solid var(--rule); background: var(--panel-2);
+    color: var(--ink-3); cursor: pointer; text-align: center; font-variant-numeric: tabular-nums;
+  }
+  .jump:hover { border-color: var(--accent); }
+  .jump[data-done="1"] { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+  .jump[aria-current="true"] { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  /* ---------- decision guide ---------- */
+  .guide { border-color: var(--accent); }
+  .steps { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; font-size: 12.5px; color: var(--ink-2); }
+  .steps b { color: var(--ink); font-weight: 600; }
+  .to {
+    display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: .03em;
+    padding: 0 6px; border-radius: 4px; margin-left: 2px; white-space: nowrap;
+    background: var(--unver-soft); color: var(--unver);
+  }
+  .to.real { background: var(--real-soft); color: var(--real); }
+  .to.fake { background: var(--fake-soft); color: var(--fake); }
+  .rule { margin: 10px 0 0; font-size: 12px; font-weight: 600; color: var(--accent); }
+  .opts.row { flex-direction: row; }
+  .opts.row .opt { flex: 1; }
+  .opt[data-g="conf"][aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- evidence hints: observations, never a suggested label ---------- */
+  .hints { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .hint {
+    font-size: 11.5px; padding: 3px 9px; border-radius: 999px;
+    background: var(--unver-soft); color: var(--unver); border: 1px solid transparent;
+  }
+
+  .calib {
+    padding: 9px 16px; font-size: 12.5px; color: var(--accent);
+    background: var(--accent-soft); border-bottom: 1px solid var(--rule);
+  }
+
+  /* ---------- worked examples ---------- */
+  .exnote { margin: 0 0 10px; font-size: 11.5px; color: var(--ink-3); }
+  .ex { padding: 10px 0; border-top: 1px dashed var(--rule); }
+  .ex-tag { font-size: 10.5px; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-3); font-weight: 600; margin-bottom: 5px; }
+  .ex-c, .ex-e { font-size: 13.5px; line-height: 1.75; padding: 5px 8px; border-radius: 6px; }
+  .ex-c { background: var(--panel-2); font-weight: 500; }
+  .ex-e { color: var(--ink-2); margin-top: 3px; border-inline-start: 2px solid var(--rule-strong); }
+  .ex-a { margin: 6px 0 0; font-size: 12px; color: var(--ink-2); }
+
+  .sync { font-size: 11.5px; color: var(--ink-3); display: flex; align-items: center; gap: 6px; }
+  .sync .dot { width: 7px; height: 7px; background: var(--ink-3); }
+  .sync.ok .dot { background: var(--real); }
+  .sync.local .dot { background: var(--unver); }
+
+  /* Identity banner. Deliberately not a blocking screen: the bench renders a
+     real pair underneath so the first frame shows the tool working. */
+  .gate-bar {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    background: var(--accent-soft); border: 1px solid var(--accent);
+    border-radius: 10px; padding: 11px 14px; margin-bottom: 16px;
+    font-size: 13px; color: var(--ink-2);
+  }
+  .gate-bar strong { color: var(--accent); }
+  .who-pick { display: flex; gap: 8px; margin-left: auto; }
+  .who-pick .btn { padding: 8px 16px; font-size: 13.5px; font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="brand">
+      <h1>AFVD Annotation Bench</h1>
+      <p>240 claim and evidence pairs, stratified across label and corpus. Judge whether the evidence shown settles each claim. In this corpus it often does not, and then Unverified is the right answer.</p>
+    </div>
+    <div class="masthead-right">
+      <div class="who">
+        <span>Annotator</span>
+        <select id="annotator" aria-label="Annotator">
+          <option value="">&mdash;</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+        </select>
+      </div>
+      <div class="sync" id="sync"><i class="dot"></i><span id="syncText">Not started</span></div>
+      <button class="btn" id="import" type="button" title="Restore answers from a sheet you exported earlier">Import</button>
+      <input type="file" id="importFile" accept=".csv,text/csv" hidden>
+      <button class="btn" id="export" type="button">Export</button>
+    </div>
+  </header>
+
+  <div id="gate" class="gate-bar">
+    <div>
+      <strong>Pick your slot to start recording.</strong>
+      A and B judge the same 240 pairs independently. The bench never shows you the other annotator's answers, the dataset's labels, or the publisher.
+      <span id="standaloneNote" hidden>Your answers are saved in this browser only. Press <b>Export</b> when you finish (and now and then as a backup), then send the CSV file back.</span>
+    </div>
+    <div class="who-pick">
+      <button class="btn primary" type="button" data-who="A">I am A</button>
+      <button class="btn primary" type="button" data-who="B">I am B</button>
+    </div>
+  </div>
+
+  <main id="bench">
+    <div class="meter">
+      <div class="track" id="track" role="img" aria-label="Progress by verdict"></div>
+      <div class="tally">
+        <span><b id="tDone">0</b>/240 judged</span>
+        <span><i class="swatch" style="background:var(--real)"></i>Real <b id="tReal">0</b></span>
+        <span><i class="swatch" style="background:var(--fake)"></i>Fake <b id="tFake">0</b></span>
+        <span><i class="swatch" style="background:var(--unver)"></i>Unverified <b id="tUnver">0</b></span>
+      </div>
+      <button class="btn" id="nextTodo" type="button">Next unjudged &rarr;</button>
+    </div>
+
+    <div class="bench">
+      <article class="doc">
+        <div class="calib" id="calib" hidden>
+          <b>Pairs 1 to 20</b> are left out of the agreement score, but judge them as carefully as the rest. Don't discuss any pair, or compare answers, with the other annotator until you have both finished all 240.
+        </div>
+        <div class="doc-head">
+          <span class="rowid">Pair <b id="pos">1</b> of 240 &middot; id <span id="rowid">1</span></span>
+          <span class="state todo" id="state">Unjudged</span>
+          <div class="nav-mini">
+            <button class="btn" id="prev2" type="button" aria-label="Previous pair">&larr;</button>
+            <button class="btn" id="next2" type="button" aria-label="Next pair">&rarr;</button>
+          </div>
+        </div>
+        <section class="field">
+          <h2>Claim</h2>
+          <div class="arabic claim" id="claim" lang="ar" dir="rtl"></div>
+        </section>
+        <section class="field">
+          <h2>Retrieved evidence</h2>
+          <div class="scroller"><div class="arabic" id="evidence" lang="ar" dir="rtl"></div></div>
+          <div class="len" id="len"></div>
+          <div class="hints" id="hints" aria-live="polite"></div>
+        </section>
+      </article>
+
+      <aside class="rail">
+        <div class="card guide">
+          <h3>Decide in this order</h3>
+          <p class="ask">You are judging whether <em>this evidence</em> settles the claim, not whether the claim is true. Stop at the first step that answers it.</p>
+          <ol class="steps">
+            <li><b>Anything to read?</b> One word or a fragment settles nothing. <span class="to">Unverified</span></li>
+            <li><b>Independent?</b> If it only repeats the claim, copied or as other posts spreading the same story, it is the claim circulating. <span class="to">Unverified</span></li>
+            <li><b>Same event?</b> Same place or person but a different event does not count. <span class="to">Unverified</span></li>
+            <li><b>Settled?</b> A report or statement confirms it <span class="to real">Real</span>, or denies or debunks it <span class="to fake">Fake</span>. Discussed but not settled <span class="to">Unverified</span></li>
+          </ol>
+          <p class="rule">Repetition is never confirmation. Steps 1 to 3 can only give Unverified.</p>
+        </div>
+        <div class="card">
+          <h3>1 &middot; Verdict</h3>
+          <p class="ask">Apply the four steps above.</p>
+          <div class="opts" id="gVerdict">
+            <button class="opt" type="button" data-g="verdict" data-v="Real"><i class="dot"></i>Real<kbd>1</kbd></button>
+            <button class="opt" type="button" data-g="verdict" data-v="Fake"><i class="dot"></i>Fake<kbd>2</kbd></button>
+            <button class="opt" type="button" data-g="verdict" data-v="Unverified"><i class="dot"></i>Unverified<kbd>3</kbd></button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>2 &middot; Evidence relevance</h3>
+          <p class="ask">How close does it come to the specific assertion?</p>
+          <div class="opts" id="gRel">
+            <button class="opt" type="button" data-g="rel" data-v="Relevant"><i class="dot"></i>Relevant<kbd>Q</kbd></button>
+            <button class="opt" type="button" data-g="rel" data-v="Partially Relevant"><i class="dot"></i>Partially relevant<kbd>W</kbd></button>
+            <button class="opt" type="button" data-g="rel" data-v="Irrelevant"><i class="dot"></i>Irrelevant<kbd>E</kbd></button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>3 &middot; Faithfulness</h3>
+          <p class="ask">Does this evidence, on its own, carry a definite verdict? High only if your verdict is Real or Fake and a reader could reach it from this evidence alone. Unverified is always Low.</p>
+          <div class="opts" id="gFaith">
+            <button class="opt" type="button" data-g="faith" data-v="High"><i class="dot"></i>High<kbd>A</kbd></button>
+            <button class="opt" type="button" data-g="faith" data-v="Low"><i class="dot"></i>Low<kbd>S</kbd></button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>4 &middot; Confidence</h3>
+          <p class="ask">Could you defend a different verdict? Unsure is not a penalty; it tells adjudication where to look.</p>
+          <div class="opts row" id="gConf">
+            <button class="opt" type="button" data-g="conf" data-v="Sure"><i class="dot"></i>Sure<kbd>Z</kbd></button>
+            <button class="opt" type="button" data-g="conf" data-v="Unsure"><i class="dot"></i>Unsure<kbd>X</kbd></button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Notes</h3>
+          <textarea id="notes" placeholder="Dialect, sarcasm, temporal mismatch, conflicting evidence&hellip;"></textarea>
+        </div>
+        <div class="footer-nav">
+          <button class="btn" id="prev" type="button">&larr; Previous</button>
+          <button class="btn primary" id="next" type="button">Next &rarr;</button>
+        </div>
+        <details class="book" open>
+          <summary>Worked examples</summary>
+          <p class="exnote">Taken from outside the 240 pairs you are annotating, so studying them does not bias your answers.</p>
+          <div class="ex">
+            <div class="ex-tag">Step 1 &middot; nothing to read</div>
+            <div class="arabic ex-c" lang="ar" dir="rtl">وفاة أسطورة كرة القدم البرازيلية بيليه عن عمر يناهز 82 عامًا بعد صراع مع المرض.</div>
+            <div class="arabic ex-e" lang="ar" dir="rtl">عمر يناهز</div>
+            <p class="ex-a">Evidence is two words lifted from the claim. <span class="to">Unverified</span></p>
+          </div>
+          <div class="ex">
+            <div class="ex-tag">Step 2 &middot; the claim repeated</div>
+            <div class="arabic ex-c" lang="ar" dir="rtl">البلجيكيين يضربون المواطنين العرب في شوارع بروكسل بعد هزيمتهم من المغرب</div>
+            <div class="arabic ex-e" lang="ar" dir="rtl">البلجيكيين يضربون المواطنين العرب في شوارع بروكسل بعد هزيمتهم من المغرب .. البلجيكيين يضربون المواطنين العرب في شوارع بلجيكا…</div>
+            <p class="ex-a">The evidence is the claim copied back, twice. <span class="to">Unverified</span></p>
+          </div>
+          <div class="ex">
+            <div class="ex-tag">Step 2 &middot; a rumour spreading</div>
+            <div class="arabic ex-c" lang="ar" dir="rtl">ديديه دروغبا يعتنق الإسلام</div>
+            <div class="arabic ex-e" lang="ar" dir="rtl">ديديه دروغبا نجم تشيلسي و منتخب ساحل العاج سابقا يعتنق الإسلام اليوم.. الله أكبر.. اللهم ثبّته…</div>
+            <p class="ex-a">Other posts repeating the same story. This rumour was debunked, but nothing here says so, and nothing here confirms it either. <span class="to">Unverified</span></p>
+          </div>
+          <div class="ex">
+            <div class="ex-tag">Step 3 &middot; a different event</div>
+            <div class="arabic ex-c" lang="ar" dir="rtl">الامارات تلغي ترخيص بنك "MTC" الروسي بعد شهرين من انطلاقه</div>
+            <div class="arabic ex-e" lang="ar" dir="rtl">"أوبك": أول بيان رسمي جزائري بعد القرار الإماراتي</div>
+            <p class="ex-a">Same country, a different decision entirely. <span class="to">Unverified</span></p>
+          </div>
+          <div class="ex">
+            <div class="ex-tag">Step 4 &middot; borderline</div>
+            <div class="arabic ex-c" lang="ar" dir="rtl">اعصار قمعي رملي يضرب محافظة الطائف غرب السعودية</div>
+            <div class="arabic ex-e" lang="ar" dir="rtl">إعصار قمعي ضخم يضرب صحراء مدينة الطائف غربي السعودية… إعصار قمعي يضرب الطائف ويتسبب ببعض الخسائر.</div>
+            <p class="ex-a">Describes the event and adds a detail (some losses), but reads like viral headlines rather than a named report. Either Real or Unverified is defensible. Pick one and mark <b>Unsure</b>.</p>
+          </div>
+        </details>
+        <details class="book">
+          <summary>Relevance and faithfulness scales</summary>
+          <dl>
+            <dt>Relevant</dt><dd>Addresses the specific claim, its entities and its time frame.</dd>
+            <dt>Partially relevant</dt><dd>Same topic or entity, not the specific assertion.</dd>
+            <dt>Irrelevant</dt><dd>Different topic, different event, or generic boilerplate.</dd>
+            <dt>Faithfulness High</dt><dd>Your verdict is Real or Fake, and this evidence alone is enough to reach it.</dd>
+            <dt>Faithfulness Low</dt><dd>Your verdict leans on outside knowledge or thin evidence, or your verdict is Unverified.</dd>
+          </dl>
+          <p class="warn">Do not look claims up. Knowing a claim is false does not make this evidence refute it.</p>
+        </details>
+        <details class="book">
+          <summary>Jump to pair</summary>
+          <div class="grid-jump" id="jump"></div>
+        </details>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script>
+const ITEMS = /*__ITEMS__*/null;
+const GROUPS = {
+  verdict: "verdict", rel: "evidence_relevance", faith: "faithfulness", conf: "confidence"
+};
+const KEYS = {
+  "1": ["verdict", "Real"], "2": ["verdict", "Fake"], "3": ["verdict", "Unverified"],
+  "q": ["rel", "Relevant"], "w": ["rel", "Partially Relevant"], "e": ["rel", "Irrelevant"],
+  "a": ["faith", "High"], "s": ["faith", "Low"],
+  "z": ["conf", "Sure"], "x": ["conf", "Unsure"]
+};
+const CALIBRATION_ROWS = 20;
+
+// Arabic letters and digits only, so punctuation, hashtags and URLs don't
+// decide whether one text reproduces another.
+const arabicOnly = (t) => (t || "").replace(/[^؀-ۿ0-9]+/g, " ").trim();
+
+/* Observations about the evidence, shown as plain facts. They never name a
+   verdict: both annotators see the same ones, so a hint that suggested an
+   answer would push them together and inflate the agreement it is measuring. */
+function observations(item) {
+  const notes = [];
+  const words = item.evidence.trim().split(/\s+/).filter(Boolean).length;
+  if (words === 0) notes.push("No evidence text");
+  else if (words <= 5) notes.push(`Evidence is only ${words} word${words === 1 ? "" : "s"}`);
+  const claim = arabicOnly(item.claim);
+  const evidence = arabicOnly(item.evidence);
+  if (claim.length >= 20 && evidence.includes(claim.slice(0, Math.min(60, claim.length)))) {
+    notes.push("Evidence reproduces the claim's opening text word for word");
+  }
+  return notes;
+}
+
+let who = "";
+let at = 0;
+let answers = {};
+let db = null;
+let saveTimer = null;
+const $ = (id) => document.getElementById(id);
+
+// Inside the Claude viewer `window.claude` exists before any script runs. Opened
+// as a plain file in a browser it does not, and the page works on its own:
+// answers stay in localStorage and leave as an exported CSV.
+const HOSTED = !!(window.claude && typeof window.claude.use === "function");
+
+/* ---------- storage: db when the viewer grants it, localStorage otherwise ---------- */
+const lsKey = () => `afvd.annotations.${who}`;
+
+function loadLocal() {
+  try { return JSON.parse(localStorage.getItem(lsKey()) || "{}"); } catch { return {}; }
+}
+function saveLocal() {
+  try { localStorage.setItem(lsKey(), JSON.stringify(answers)); } catch { /* private mode */ }
+}
+
+function setSync(kind, text) {
+  const el = $("sync");
+  el.className = "sync" + (kind ? " " + kind : "");
+  $("syncText").textContent = text;
+}
+
+async function connect() {
+  saveLocal();
+  if (!HOSTED) {
+    setSync("local", "Saved in this browser. Export to back up");
+    return;
+  }
+  setSync("local", "Saved on this device");
+  try {
+    db = await claude.use("db");
+  } catch { db = null; }
+  if (!db) return;
+  try {
+    const snap = await db.doc(`annotations/${who}`).get();
+    const remote = snap.exists ? (snap.data() || {}).items : null;
+    if (remote && typeof remote === "object") {
+      // Merge rather than replace: the annotator may have started offline.
+      answers = Object.assign({}, remote, answers);
+      saveLocal();
+      render();
+    }
+    setSync("ok", `Synced as annotator ${who}`);
+    flush();
+  } catch {
+    setSync("local", "Saved on this device");
+  }
+}
+
+function queueSave() {
+  saveLocal();
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(flush, 700);
+}
+
+async function flush() {
+  if (!db) return;
+  try {
+    await db.doc(`annotations/${who}`).set({
+      annotator: who,
+      updatedAt: new Date().toISOString(),
+      count: Object.keys(answers).length,
+      items: answers
+    });
+    setSync("ok", `Synced as annotator ${who}`);
+  } catch {
+    setSync("local", "Saved on this device");
+  }
+}
+
+/* ---------- rendering ---------- */
+function record(id) {
+  if (!answers[id]) answers[id] = {};
+  return answers[id];
+}
+const judged = (id) => !!(answers[id] && answers[id].verdict);
+
+function render() {
+  const item = ITEMS[at];
+  $("pos").textContent = at + 1;
+  $("rowid").textContent = item.id;
+  $("claim").textContent = item.claim;
+  $("evidence").textContent = item.evidence || "(no evidence text)";
+  $("len").textContent = `${item.evidence.length} characters of evidence`;
+  $("hints").innerHTML = observations(item)
+    .map((text) => `<span class="hint">${text}</span>`)
+    .join("");
+  $("calib").hidden = at >= CALIBRATION_ROWS;
+
+  const a = answers[item.id] || {};
+  document.querySelectorAll(".opt").forEach((b) => {
+    const key = GROUPS[b.dataset.g];
+    b.setAttribute("aria-pressed", String(a[key] === b.dataset.v));
+  });
+  $("notes").value = a.notes || "";
+
+  const done = judged(item.id);
+  const state = $("state");
+  state.textContent = done ? "Judged" : "Unjudged";
+  state.className = "state " + (done ? "done" : "todo");
+
+  $("prev").disabled = $("prev2").disabled = at === 0;
+  $("next").disabled = $("next2").disabled = at === ITEMS.length - 1;
+
+  tally();
+  paintJump();
+}
+
+function tally() {
+  let r = 0, f = 0, u = 0;
+  for (const id in answers) {
+    const v = answers[id].verdict;
+    if (v === "Real") r++; else if (v === "Fake") f++; else if (v === "Unverified") u++;
+  }
+  const n = ITEMS.length;
+  $("tDone").textContent = r + f + u;
+  $("tReal").textContent = r;
+  $("tFake").textContent = f;
+  $("tUnver").textContent = u;
+  $("track").innerHTML =
+    `<i class="real" style="width:${(r / n) * 100}%"></i>` +
+    `<i class="fake" style="width:${(f / n) * 100}%"></i>` +
+    `<i class="unver" style="width:${(u / n) * 100}%"></i>`;
+}
+
+function buildJump() {
+  $("jump").innerHTML = ITEMS
+    .map((it, i) => `<button class="jump" type="button" data-i="${i}">${it.id}</button>`)
+    .join("");
+}
+function paintJump() {
+  document.querySelectorAll(".jump").forEach((b) => {
+    const i = Number(b.dataset.i);
+    b.dataset.done = judged(ITEMS[i].id) ? "1" : "0";
+    b.setAttribute("aria-current", String(i === at));
+  });
+}
+
+function go(i) {
+  at = Math.max(0, Math.min(ITEMS.length - 1, i));
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function choose(group, value) {
+  if (!who) {
+    setSync("local", "Pick annotator A or B first");
+    $("gate").scrollIntoView({ block: "nearest", behavior: "smooth" });
+    return;
+  }
+  const item = ITEMS[at];
+  const rec = record(item.id);
+  const key = GROUPS[group];
+  rec[key] = rec[key] === value ? undefined : value;
+  if (rec[key] === undefined) delete rec[key];
+  queueSave();
+  render();
+}
+
+function nextTodo() {
+  for (let k = 1; k <= ITEMS.length; k++) {
+    const i = (at + k) % ITEMS.length;
+    if (!judged(ITEMS[i].id)) return go(i);
+  }
+  setSync("ok", "All 240 pairs judged");
+}
+
+/* ---------- export ---------- */
+function toCsv() {
+  const head = ["annotation_id", "verdict", "evidence_relevance", "faithfulness", "confidence", "notes"];
+  const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = [head.join(",")];
+  for (const it of ITEMS) {
+    const a = answers[it.id] || {};
+    lines.push(
+      [it.id, a.verdict, a.evidence_relevance, a.faithfulness, a.confidence, a.notes]
+        .map(esc).join(",")
+    );
+  }
+  return "﻿" + lines.join("\r\n");
+}
+
+async function exportSheet() {
+  if (!who) {
+    setSync("local", "Pick annotator A or B first");
+    return;
+  }
+  const csv = toCsv();
+  const filename = `annotation_sheet_annotator_${who}.csv`;
+
+  if (!HOSTED) {
+    // A plain browser allows an ordinary download, so hand over the file.
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    setSync("ok", `Exported ${filename}`);
+    return;
+  }
+
+  let saved = false;
+  try {
+    const downloads = await claude.use("downloads");
+    if (downloads) {
+      await downloads.save({ filename, data: csv });
+      saved = true;
+    }
+  } catch { saved = false; }
+  if (!saved) {
+    // Viewer sandboxes block page-initiated downloads, so fall back to a
+    // copyable window rather than a link that silently does nothing.
+    const w = window.open("", "_blank");
+    if (w) {
+      w.document.write("<pre style='white-space:pre-wrap;font:12px monospace'></pre>");
+      w.document.querySelector("pre").textContent = csv;
+      w.document.title = filename;
+    } else {
+      navigator.clipboard?.writeText(csv);
+      setSync("ok", "Sheet copied to clipboard");
+    }
+  }
+}
+
+/* ---------- import ---------- */
+// Minimal RFC 4180 reader: quoted fields may hold commas, quotes and newlines,
+// which the notes column does.
+function parseCsv(text) {
+  text = text.replace(/^﻿/, "");
+  const rows = [];
+  let row = [];
+  let field = "";
+  let quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quoted) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; } else quoted = false;
+      } else field += c;
+    } else if (c === '"') quoted = true;
+    else if (c === ",") { row.push(field); field = ""; }
+    else if (c === "\n" || c === "\r") {
+      if (c === "\r" && text[i + 1] === "\n") i++;
+      row.push(field); rows.push(row); row = []; field = "";
+    } else field += c;
+  }
+  if (field !== "" || row.length) { row.push(field); rows.push(row); }
+  return rows;
+}
+
+const ALLOWED = {
+  verdict: ["Real", "Fake", "Unverified"],
+  evidence_relevance: ["Relevant", "Partially Relevant", "Irrelevant"],
+  faithfulness: ["High", "Low"],
+  confidence: ["Sure", "Unsure"]
+};
+
+async function importSheet(file) {
+  if (!who) {
+    setSync("local", "Pick annotator A or B first, then import");
+    return;
+  }
+  const rows = parseCsv(await file.text()).filter((r) => r.some((c) => c.trim()));
+  if (!rows.length) { setSync("local", "That file is empty"); return; }
+  const head = rows.shift().map((h) => h.trim());
+  const idCol = head.indexOf("annotation_id");
+  if (idCol < 0) {
+    setSync("local", "That file has no annotation_id column. Choose a sheet exported from this bench");
+    return;
+  }
+  const known = new Set(ITEMS.map((it) => it.id));
+  let restored = 0;
+  for (const r of rows) {
+    const id = parseInt(r[idCol], 10);
+    if (!known.has(id)) continue;
+    const rec = {};
+    for (const [field, allowed] of Object.entries(ALLOWED)) {
+      const k = head.indexOf(field);
+      const v = k >= 0 ? (r[k] || "").trim() : "";
+      if (allowed.includes(v)) rec[field] = v;
+    }
+    const n = head.indexOf("notes");
+    if (n >= 0 && (r[n] || "").trim()) rec.notes = r[n];
+    if (Object.keys(rec).length) { answers[id] = rec; restored++; }
+  }
+  queueSave();
+  render();
+  setSync("ok", `Imported ${restored} pairs`);
+}
+
+/* ---------- wiring ---------- */
+function start(seed) {
+  buildJump();
+
+  document.querySelectorAll("[data-who]").forEach((b) => {
+    b.addEventListener("click", () => begin(b.dataset.who));
+  });
+  $("annotator").addEventListener("change", (e) => {
+    if (e.target.value) begin(e.target.value);
+  });
+
+  document.querySelectorAll(".opt").forEach((b) => {
+    b.addEventListener("click", () => choose(b.dataset.g, b.dataset.v));
+  });
+  $("notes").addEventListener("input", (e) => {
+    if (!who) return;
+    record(ITEMS[at].id).notes = e.target.value;
+    queueSave();
+  });
+  $("next").addEventListener("click", () => go(at + 1));
+  $("prev").addEventListener("click", () => go(at - 1));
+  $("next2").addEventListener("click", () => go(at + 1));
+  $("prev2").addEventListener("click", () => go(at - 1));
+  $("nextTodo").addEventListener("click", nextTodo);
+  $("export").addEventListener("click", exportSheet);
+  $("import").addEventListener("click", () => $("importFile").click());
+  $("importFile").addEventListener("change", (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) importSheet(file);
+    e.target.value = "";
+  });
+  $("standaloneNote").hidden = HOSTED;
+  $("jump").addEventListener("click", (e) => {
+    const b = e.target.closest(".jump");
+    if (b) go(Number(b.dataset.i));
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!who) return;
+    if (e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT") return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const k = e.key.toLowerCase();
+    if (KEYS[k]) { e.preventDefault(); choose(KEYS[k][0], KEYS[k][1]); return; }
+    if (e.key === "ArrowRight" || k === "n") { e.preventDefault(); go(at + 1); }
+    if (e.key === "ArrowLeft" || k === "p") { e.preventDefault(); go(at - 1); }
+  });
+
+  // Render a real pair straight away so the page at rest shows the bench in
+  // use rather than an empty shell waiting on identity.
+  render();
+
+  if (seed && seed.who) begin(seed.who, seed.at || 0);
+}
+
+function begin(slot, resumeAt) {
+  who = slot;
+  $("annotator").value = slot;
+  answers = loadLocal();
+  $("gate").hidden = true;
+  at = typeof resumeAt === "number" ? resumeAt : 0;
+  render();
+  if (typeof resumeAt !== "number") nextTodo();
+  connect();
+}
+
+window.claude?.hot?.snapshot?.(() => ({ who, at }));
+if (window.claude?.hot?.ready) window.claude.hot.ready(start);
+else start(window.claude?.hot?.data ?? {});
+</script>

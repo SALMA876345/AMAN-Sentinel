@@ -1,0 +1,21 @@
+# Pinned to the versions these results were produced with.
+# The unpinned ranges in requirements.txt resolve to a much newer stack:
+# the report was written against transformers>=4.35 but this environment
+# runs transformers 5.5, and three-class macro F1 moved by up to 0.034
+# between the two, which is larger than several differences the report
+# treats as model effects.
+
+pandas==3.0.1
+numpy==2.4.2
+scikit-learn==1.8.0
+openpyxl==3.1.5
+torch==2.11.0+cu128
+transformers==5.5.0
+accelerate==1.13.0
+sentence-transformers==5.5.1
+rank-bm25==0.2.2
+matplotlib==3.10.8
+seaborn==0.13.2
+scipy==1.17.1
+python-docx==1.2.0
+huggingface-hub==1.11.0

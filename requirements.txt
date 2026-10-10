@@ -1,0 +1,18 @@
+# Core data / ML
+pandas>=1.5
+numpy>=1.23
+scikit-learn>=1.2
+openpyxl>=3.0          # for reading .xlsx files
+
+# Deep learning
+torch>=2.0
+transformers>=4.35     # AraBERT, MARBERT via HuggingFace
+accelerate>=0.24       # required by transformers Trainer
+
+# Retrieval + semantic similarity
+sentence-transformers>=2.3
+rank-bm25>=0.2
+
+# Visualisation (optional, used in evaluate_all_models.py)
+matplotlib>=3.7
+seaborn>=0.12
