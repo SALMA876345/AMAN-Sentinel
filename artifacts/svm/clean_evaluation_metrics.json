@@ -1,0 +1,53 @@
+{
+  "task": "binary",
+  "labels": [
+    "Real",
+    "Fake"
+  ],
+  "test_rows": 4000,
+  "accuracy": 0.8645,
+  "macro_precision": 0.8645492871907966,
+  "macro_recall": 0.8635974764068,
+  "macro_f1": 0.8639771280803408,
+  "weighted_f1": 0.8644114491103804,
+  "mcc": 0.7281461415086161,
+  "classification_report": {
+    "Real": {
+      "precision": 0.8652291105121294,
+      "recall": 0.8460727464417501,
+      "f1-score": 0.855543710021322,
+      "support": 1897.0
+    },
+    "Fake": {
+      "precision": 0.8638694638694638,
+      "recall": 0.8811222063718498,
+      "f1-score": 0.8724105461393596,
+      "support": 2103.0
+    },
+    "accuracy": 0.8645,
+    "macro avg": {
+      "precision": 0.8645492871907966,
+      "recall": 0.8635974764068,
+      "f1-score": 0.8639771280803408,
+      "support": 4000.0
+    },
+    "weighted avg": {
+      "precision": 0.864514276289748,
+      "recall": 0.8645,
+      "f1-score": 0.8644114491103804,
+      "support": 4000.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      1605,
+      292
+    ],
+    [
+      250,
+      1853
+    ]
+  ],
+  "confidence_derivation_note": "confidence = softmax(decision_function).max(axis=1): a monotonic transform of the signed margin, NOT a calibrated probability. LinearSVC has no predict_proba.",
+  "data_source": "hackathon/data/clean_split/ — leakage-checked clean split, NOT the historical split"
+}

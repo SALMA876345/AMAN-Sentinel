@@ -1,0 +1,37 @@
+{
+  "model": "BiLSTMClassifier",
+  "vocab_size": 30000,
+  "max_len": 128,
+  "embedding_dim": 128,
+  "hidden_dim": 128,
+  "num_layers": 1,
+  "bidirectional": true,
+  "labels": [
+    "Real",
+    "Fake"
+  ],
+  "best_epoch": 2,
+  "device_trained_on": "cpu",
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.6220621352845972,
+      "validation_macro_f1": 0.7312000806904073,
+      "elapsed_seconds": 134.5
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.4549506824124943,
+      "validation_macro_f1": 0.8109384399011164,
+      "elapsed_seconds": 262.3
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.35012463222850454,
+      "validation_macro_f1": 0.8068295366740699,
+      "elapsed_seconds": 359.5
+    }
+  ],
+  "total_wall_clock_seconds": 364.3,
+  "data_source": "hackathon/data/clean_split/"
+}

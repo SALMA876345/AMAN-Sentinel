@@ -1,0 +1,300 @@
+{
+  "historical": {
+    "family": "HISTORICAL SPLIT (data/final_studies/, claim-grouped only)",
+    "tasks": {
+      "binary": {
+        "status": "OK",
+        "row_counts": {
+          "train": 17580,
+          "validation": 2512,
+          "test": 5023
+        },
+        "label_distribution": {
+          "train": {
+            "Fake": 9303,
+            "Real": 8277
+          },
+          "validation": {
+            "Fake": 1329,
+            "Real": 1183
+          },
+          "test": {
+            "Fake": 2658,
+            "Real": 2365
+          }
+        },
+        "overlaps": {
+          "train_vs_validation": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 298,
+              "trivial_overlap": 361,
+              "total_overlap": 659
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 298,
+              "trivial_overlap": 361,
+              "total_overlap": 659
+            }
+          },
+          "train_vs_test": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 503,
+              "trivial_overlap": 530,
+              "total_overlap": 1033
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 503,
+              "trivial_overlap": 530,
+              "total_overlap": 1033
+            }
+          },
+          "validation_vs_test": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 149,
+              "trivial_overlap": 250,
+              "total_overlap": 399
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 149,
+              "trivial_overlap": 250,
+              "total_overlap": 399
+            }
+          }
+        }
+      },
+      "three_class": {
+        "status": "OK",
+        "row_counts": {
+          "train": 17817,
+          "validation": 2545,
+          "test": 5091
+        },
+        "label_distribution": {
+          "train": {
+            "Fake": 9303,
+            "Real": 8278,
+            "Unverified": 236
+          },
+          "validation": {
+            "Fake": 1329,
+            "Real": 1182,
+            "Unverified": 34
+          },
+          "test": {
+            "Fake": 2658,
+            "Real": 2365,
+            "Unverified": 68
+          }
+        },
+        "overlaps": {
+          "train_vs_validation": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 303,
+              "trivial_overlap": 354,
+              "total_overlap": 657
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 303,
+              "trivial_overlap": 354,
+              "total_overlap": 657
+            }
+          },
+          "train_vs_test": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 514,
+              "trivial_overlap": 517,
+              "total_overlap": 1031
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 514,
+              "trivial_overlap": 517,
+              "total_overlap": 1031
+            }
+          },
+          "validation_vs_test": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 161,
+              "trivial_overlap": 243,
+              "total_overlap": 404
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 161,
+              "trivial_overlap": 243,
+              "total_overlap": 404
+            }
+          }
+        }
+      }
+    }
+  },
+  "clean": {
+    "family": "CLEAN HACKATHON SPLIT (hackathon/data/clean_split/, claim+evidence component-grouped)",
+    "tasks": {
+      "binary": {
+        "status": "OK",
+        "row_counts": {
+          "train": 13999,
+          "validation": 2000,
+          "test": 4000
+        },
+        "label_distribution": {
+          "train": {
+            "Fake": 7429,
+            "Real": 6570
+          },
+          "validation": {
+            "Fake": 1033,
+            "Real": 967
+          },
+          "test": {
+            "Fake": 2103,
+            "Real": 1897
+          }
+        },
+        "overlaps": {
+          "train_vs_validation": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 334,
+              "total_overlap": 334
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 334,
+              "total_overlap": 334
+            },
+            "component_id_overlap": 0
+          },
+          "train_vs_test": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 535,
+              "total_overlap": 535
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 535,
+              "total_overlap": 535
+            },
+            "component_id_overlap": 0
+          },
+          "validation_vs_test": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 236,
+              "total_overlap": 236
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 236,
+              "total_overlap": 236
+            },
+            "component_id_overlap": 0
+          }
+        }
+      },
+      "three_class": {
+        "status": "OK",
+        "row_counts": {
+          "train": 14156,
+          "validation": 2022,
+          "test": 4044
+        },
+        "label_distribution": {
+          "train": {
+            "Fake": 7419,
+            "Real": 6581,
+            "Unverified": 156
+          },
+          "validation": {
+            "Fake": 1041,
+            "Real": 958,
+            "Unverified": 23
+          },
+          "test": {
+            "Fake": 2105,
+            "Real": 1895,
+            "Unverified": 44
+          }
+        },
+        "overlaps": {
+          "train_vs_validation": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 329,
+              "total_overlap": 329
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 329,
+              "total_overlap": 329
+            },
+            "component_id_overlap": 0
+          },
+          "train_vs_test": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 516,
+              "total_overlap": 516
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 516,
+              "total_overlap": 516
+            },
+            "component_id_overlap": 0
+          },
+          "validation_vs_test": {
+            "exact_claim_text_overlap": 0,
+            "exact_evidence_text_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 248,
+              "total_overlap": 248
+            },
+            "claim_evidence_pair_overlap": 0,
+            "claim_group_overlap": 0,
+            "evidence_group_overlap": {
+              "substantive_overlap": 0,
+              "trivial_overlap": 248,
+              "total_overlap": 248
+            },
+            "component_id_overlap": 0
+          }
+        }
+      }
+    }
+  }
+}

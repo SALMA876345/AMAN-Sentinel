@@ -1,0 +1,19 @@
+{
+  "task": "binary",
+  "source_files": {
+    "train": "C:\\Users\\Acer\\Downloads\\Assignment 2\\Assignment 2\\Code files\\hackathon\\data\\clean_split\\source_binary_train.csv",
+    "validation": "C:\\Users\\Acer\\Downloads\\Assignment 2\\Assignment 2\\Code files\\hackathon\\data\\clean_split\\source_binary_validation.csv",
+    "test": "C:\\Users\\Acer\\Downloads\\Assignment 2\\Assignment 2\\Code files\\hackathon\\data\\clean_split\\source_binary_test.csv"
+  },
+  "row_counts": {
+    "train": 13999,
+    "validation": 2000,
+    "test": 4000,
+    "final_train_(train+validation)": 15999
+  },
+  "fingerprints_sha256": {
+    "train": "cb227f3e3d9707c99e40ded4c220a1a15912b578bda54fc8f46a5693673eb3d1",
+    "validation": "5005253383de0c9d8e4cb0056435c4e381477a388857e324a678d199eb172337",
+    "test": "6d2a1f782c3b02cb7b44b43f5ae0fd6b16d5dcfac2d2def8e5e0dac9bf0ac9fa"
+  }
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "prediction": "Fake",
+    "decision_score": -1.028041155755662,
+    "model_used": "LinearSVC (clean, hackathon/train_svm_clean.py)",
+    "sample_id": "CLEAN-002809-ff351c2d0f",
+    "gold_label": "Fake",
+    "matches_gold": true
+  },
+  {
+    "prediction": "Real",
+    "decision_score": 1.395953189895271,
+    "model_used": "LinearSVC (clean, hackathon/train_svm_clean.py)",
+    "sample_id": "CLEAN-017456-178b0132d5",
+    "gold_label": "Real",
+    "matches_gold": true
+  },
+  {
+    "prediction": "Real",
+    "decision_score": 0.487736137839505,
+    "model_used": "LinearSVC (clean, hackathon/train_svm_clean.py)",
+    "sample_id": "CLEAN-002669-ae36cbd8e4",
+    "gold_label": "Real",
+    "matches_gold": true
+  },
+  {
+    "prediction": "Fake",
+    "decision_score": -0.3344927944319065,
+    "model_used": "LinearSVC (clean, hackathon/train_svm_clean.py)",
+    "sample_id": "CLEAN-019651-d27cd747ba",
+    "gold_label": "Real",
+    "matches_gold": false
+  },
+  {
+    "prediction": "Real",
+    "decision_score": 0.11393987808907792,
+    "model_used": "LinearSVC (clean, hackathon/train_svm_clean.py)",
+    "sample_id": "CLEAN-014933-e3010d874a",
+    "gold_label": "Fake",
+    "matches_gold": false
+  },
+  {
+    "prediction": "Real",
+    "decision_score": 0.6267674317700712,
+    "model_used": "LinearSVC (clean, hackathon/train_svm_clean.py)",
+    "sample_id": "CLEAN-000357-c777aa8232",
+    "gold_label": "Real",
+    "matches_gold": true
+  },
+  {
+    "prediction": "Real",
+    "decision_score": 1.8035193692877012,
+    "model_used": "LinearSVC (clean, hackathon/train_svm_clean.py)",
+    "sample_id": "CLEAN-008794-e95262631c",
+    "gold_label": "Real",
+    "matches_gold": true
+  },
+  {
+    "prediction": "Real",
+    "decision_score": 0.3892850849454982,
+    "model_used": "LinearSVC (clean, hackathon/train_svm_clean.py)",
+    "sample_id": "CLEAN-001050-59d5b20eba",
+    "gold_label": "Real",
+    "matches_gold": true
+  }
+]

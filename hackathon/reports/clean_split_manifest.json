@@ -1,0 +1,138 @@
+{
+  "protocol": "phase1_clean_hackathon_split_v1",
+  "seed": 42,
+  "min_evidence_chars_for_grouping": 40,
+  "near_duplicate_policy": "exact match on normalize_arabic(claim) and on (normalize_arabic(claim), normalize_arabic(evidence)) pairs; fuzzy/edit-distance near-duplicate detection NOT implemented in Phase 1",
+  "dedup_report": {
+    "rows_before_dedup": 25649,
+    "rows_after_claim_norm_dedup": 20222,
+    "exact_duplicate_claims_removed": 5427,
+    "rows_after_claim_evidence_pair_dedup": 20222,
+    "additional_duplicate_pairs_removed": 0
+  },
+  "conflicting_claim_groups_removed": 0,
+  "conflicting_rows_removed": 0,
+  "input_rows_after_dedup_and_conflict_removal": 20222,
+  "connected_components": 16591,
+  "splits": {
+    "source_binary_train": {
+      "rows": 13999,
+      "components": 11448,
+      "claim_groups": 13999,
+      "evidence_groups": 7319,
+      "binary_labels": {
+        "Fake": 7429,
+        "Real": 6570
+      },
+      "three_class_labels": {
+        "Fake": 7429,
+        "Real": 6570
+      },
+      "fingerprint_sha256": "13878a825d7394ba4f22bf4a47e2440d3da81227501241eb67e600f3cc6a4fed"
+    },
+    "source_binary_validation": {
+      "rows": 2000,
+      "components": 1635,
+      "claim_groups": 2000,
+      "evidence_groups": 1266,
+      "binary_labels": {
+        "Fake": 1033,
+        "Real": 967
+      },
+      "three_class_labels": {
+        "Fake": 1033,
+        "Real": 967
+      },
+      "fingerprint_sha256": "a7c61da8c2672f3991af12e25a7df149445b28d25c807e55e3119ec32027d933"
+    },
+    "source_binary_test": {
+      "rows": 4000,
+      "components": 3287,
+      "claim_groups": 4000,
+      "evidence_groups": 2399,
+      "binary_labels": {
+        "Fake": 2103,
+        "Real": 1897
+      },
+      "three_class_labels": {
+        "Fake": 2103,
+        "Real": 1897
+      },
+      "fingerprint_sha256": "fed0aba2e0bf251f89e501c37bcc6b3be08975c4495910cb79f8e7e6536b78c7"
+    },
+    "source_three_class_train": {
+      "rows": 14156,
+      "components": 11603,
+      "claim_groups": 14156,
+      "evidence_groups": 7458,
+      "binary_labels": {
+        "Fake": 7419,
+        "Real": 6581
+      },
+      "three_class_labels": {
+        "Fake": 7419,
+        "Real": 6581,
+        "Unverified": 156
+      },
+      "fingerprint_sha256": "2a1ced996f33caf98961f950c16d409c3ec3fb8fc704fe4e6c9387eb04105602"
+    },
+    "source_three_class_validation": {
+      "rows": 2022,
+      "components": 1661,
+      "claim_groups": 2022,
+      "evidence_groups": 1323,
+      "binary_labels": {
+        "Fake": 1041,
+        "Real": 958
+      },
+      "three_class_labels": {
+        "Fake": 1041,
+        "Real": 958,
+        "Unverified": 23
+      },
+      "fingerprint_sha256": "fd9f45a7f8a2ebba7f49ba83d76d41d59e62622d723933a89d3e10804995bb3b"
+    },
+    "source_three_class_test": {
+      "rows": 4044,
+      "components": 3327,
+      "claim_groups": 4044,
+      "evidence_groups": 2409,
+      "binary_labels": {
+        "Fake": 2105,
+        "Real": 1895
+      },
+      "three_class_labels": {
+        "Fake": 2105,
+        "Real": 1895,
+        "Unverified": 44
+      },
+      "fingerprint_sha256": "25e6281f9ecaa3985d4621831495855548908180359adc98d08722853378c73c"
+    }
+  },
+  "overlap_checks": {
+    "binary_claim_group_train_test": 0,
+    "binary_claim_group_train_validation": 0,
+    "binary_claim_group_validation_test": 0,
+    "binary_evidence_group_train_test": 535,
+    "binary_evidence_group_train_validation": 334,
+    "binary_evidence_group_validation_test": 236,
+    "binary_exact_claim_text_train_test": 0,
+    "binary_exact_claim_text_train_validation": 0,
+    "binary_claim_evidence_pair_train_test": 0,
+    "binary_claim_evidence_pair_train_validation": 0,
+    "binary_component_id_train_test": 0,
+    "binary_component_id_train_validation": 0,
+    "three_class_claim_group_train_test": 0,
+    "three_class_claim_group_train_validation": 0,
+    "three_class_claim_group_validation_test": 0,
+    "three_class_evidence_group_train_test": 516,
+    "three_class_evidence_group_train_validation": 329,
+    "three_class_evidence_group_validation_test": 248,
+    "three_class_exact_claim_text_train_test": 0,
+    "three_class_exact_claim_text_train_validation": 0,
+    "three_class_claim_evidence_pair_train_test": 0,
+    "three_class_claim_evidence_pair_train_validation": 0,
+    "three_class_component_id_train_test": 0,
+    "three_class_component_id_train_validation": 0
+  }
+}

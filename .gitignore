@@ -6,6 +6,10 @@ results/
 *.bin
 *.pt
 
+# Phase 1 (AMAN hackathon) retrainable model binaries — scripts under
+# hackathon/ regenerate these; only their JSON metadata is tracked.
+artifacts/**/*.joblib
+
 # Documents and Office temp files
 *.docx
 *.pptx

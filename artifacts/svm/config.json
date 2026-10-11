@@ -1,0 +1,42 @@
+{
+  "model": "LinearSVC",
+  "selected_C": 2.0,
+  "selected_class_weight": "none",
+  "max_iter": 10000,
+  "random_state": 42,
+  "task": "binary",
+  "labels": [
+    "Real",
+    "Fake"
+  ],
+  "input_format": "claim_norm + ' [SEP] ' + evidence_norm",
+  "feature_union": [
+    {
+      "name": "word",
+      "analyzer": "word",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "min_df": 2,
+      "max_df": 0.995,
+      "max_features": 70000,
+      "sublinear_tf": true
+    },
+    {
+      "name": "char",
+      "analyzer": "char_wb",
+      "ngram_range": [
+        3,
+        5
+      ],
+      "min_df": 2,
+      "max_features": 90000,
+      "sublinear_tf": true
+    }
+  ],
+  "selection_criterion": "lexicographic (macro_f1, mcc, accuracy) on validation only",
+  "refit_policy": "train + validation with selected hyperparameters (test never used for selection)",
+  "confidence_derivation": "softmax(decision_function) \u2014 NOT a calibrated probability. LinearSVC has no predict_proba; this is a monotonic transform of the signed distance to the separating hyperplane, scaled to sum to 1 across classes for reporting convenience only.",
+  "data_source": "hackathon/data/clean_split/ (leakage-checked), NOT data/final_studies/ (historical, leak-affected)"
+}
