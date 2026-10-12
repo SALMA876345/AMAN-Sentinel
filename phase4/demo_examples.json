@@ -1,0 +1,29 @@
+{
+  "note": "Real rows from hackathon/data/clean_split/source_binary_test.csv, picked because their actual pipeline behavior (not hard-coded) demonstrates the three required demo paths. Call phase3.aman_pipeline.verify_content(claim, evidence) live to get the real result for each -- do not hard-code the output JSON anywhere in frontend or backend code.",
+  "examples": [
+    {
+      "label": "high_confidence_no_escalation",
+      "sample_id": "CLEAN-000123-5f9bb76b0f",
+      "true_label": "Fake",
+      "claim": "الاسطوره الايفواريه ديديه دروجبا يعتنق الإسلام ،،،،،اللهم ثبته علي الحق الذي يرضيك",
+      "evidence": "الاسطوره الايفواريه ديديه دروجبا يعتنق الإسلام ،،،،،اللهم ثبته علي الحق الذي يرضيك عاااجل :  أخبار متداولة لإعتناق الأسطورة الايفواريه ديديه دروجبا الإسلام تقارير: ديديه دروجبا يعتنق الإسلام  الدوريالإنجليزي",
+      "expected_behavior": "All 3 models agree Fake with high confidence -> VERIFIED_AUTOMATICALLY, no LLM call, fast (~1-2s after models are loaded)."
+    },
+    {
+      "label": "escalation_with_evidence",
+      "sample_id": "CLEAN-019553-27c98aedd4",
+      "true_label": "Real",
+      "claim": "شاهد: ضبط مصنع يحول زيت السيارات إلى عسل",
+      "evidence": "القبض على مجموعة يديرون مصنع يحول زيت السيارات إلى عسل يصنع في السعوديه. الدخان الجديد مغشوش31 القبض على مصنع يحول زيت السيارات الى عسل يصنع في السعوديه حسبي الله ونعم الوكيل مصنع يحول زيت السيارات إلى عسل   ماذا نسمي هذا العبث في صحة البشر، حقد أو حسد أو غش أو إستهتار ما هي العقوبة لهؤلاء المجرمين،  أسقوهم ما جنت يداهمالعقاب من جنس العملودعو الأمراض تسري في أجسادهم فكم طفلا وشيخا وإنساناً يعالج بسببهم؟هذا أقل ما يستحقون. فقد عاثوا في الأرض فسادا",
+      "expected_behavior": "Models disagree/low-confidence -> escalates. Retrieval + LLM verification. In the Phase 3 held-out run this produced SUPPORTED, confidence 0.9, matching true_label Real. ~20-100s due to live LLM call via Ollama qwen2.5:1.5b."
+    },
+    {
+      "label": "insufficient_evidence",
+      "sample_id": "CLEAN-006985-1aa60ddff7",
+      "true_label": "Real",
+      "claim": "استاد برج العرب غرق بمياه الامطار",
+      "evidence": "رصد  استاد برج العرب يتحول لـمسبح برج العرب.. والمدير: لا أملك حق التصريح جانب من استعدادات استاد برج العرب لاستقبال مباريات كاس العالم 2030 استاد برج العرب دا اجدد استاد معمول بتكلفة  كام مليون كده  عشان يستضيف البطولات الكبرى.. مفيهوش نظام صرف محترم",
+      "expected_behavior": "Escalates; retrieval succeeds but the LLM's answer does not survive the citation safeguard and is downgraded -> INSUFFICIENT_EVIDENCE / status UNCERTAIN. Demonstrates the safeguard actively preventing an unsupported verdict rather than guessing."
+    }
+  ]
+}

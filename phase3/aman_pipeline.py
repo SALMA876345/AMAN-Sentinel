@@ -64,11 +64,13 @@ def verify_content(claim_text: str, evidence_text: str = "") -> dict:
       "evidence": [ ... ]  # Evidence Pack entries actually cited, empty if not escalated
     }
     """
+    stages = ["analyzing_language", "running_classifiers", "checking_confidence", "checking_novelty"]
     scoring = _get_ensemble().score(claim_text, evidence_text)
     threshold = _get_threshold()
     decision = route(scoring["trust_score"], threshold)
 
     if decision == VERIFIED_PREDICTION:
+        stages.append("preparing_result")
         return {
             "status": "VERIFIED_AUTOMATICALLY",
             "classification": scoring["svm_prediction"],
@@ -82,6 +84,7 @@ def verify_content(claim_text: str, evidence_text: str = "") -> dict:
                 f"with sufficient confidence and model agreement; no deep verification needed."
             ),
             "evidence": [],
+            "processing_stages": stages,
             "_router_detail": {
                 "trust_score": round(scoring["trust_score"], 4),
                 "threshold": round(threshold, 4),
@@ -98,10 +101,13 @@ def verify_content(claim_text: str, evidence_text: str = "") -> dict:
     from phase3.verification_llm import verify_claim_against_evidence
     from phase3.llm_provider import get_default_provider
 
+    stages.append("retrieving_evidence")
     # hybrid_rrf won on Recall@5/@10/MRR in phase3/reports/retrieval_evaluation.json
     evidence_pack = retrieve_evidence(claim_text, top_k=5, method="hybrid_rrf")
+    stages.append("deep_verification")
     provider = get_default_provider()
     llm_result = verify_claim_against_evidence(claim_text, evidence_pack, provider)
+    stages.append("preparing_result")
 
     evidence_verdict = llm_result["verdict"]
     if evidence_verdict == "SUPPORTED":
@@ -124,6 +130,7 @@ def verify_content(claim_text: str, evidence_text: str = "") -> dict:
         "evidence_verdict": evidence_verdict,
         "explanation": llm_result.get("explanation", ""),
         "evidence": cited_evidence,
+        "processing_stages": stages,
         "_router_detail": {
             "trust_score": round(scoring["trust_score"], 4),
             "threshold": round(threshold, 4),

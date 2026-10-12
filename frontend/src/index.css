@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  --aman-bg: #0a0f1c;
+  --aman-bg-raised: #10172a;
+  --aman-bg-card: #131b2e;
+  --aman-border: #243049;
+  --aman-text: #e8edf7;
+  --aman-text-dim: #93a1bd;
+  --aman-teal: #2dd4bf;
+  --aman-teal-dim: #0f3d38;
+  --aman-amber: #f5b454;
+  --aman-amber-dim: #4a3414;
+  --aman-blue: #5b8def;
+  --aman-blue-dim: #16264a;
+  --aman-purple: #a78bfa;
+  --aman-purple-dim: #2c2650;
+  --aman-red: #f27067;
+  --aman-red-dim: #4a1f1c;
+  --aman-green: #4ade80;
+  --aman-green-dim: #14361f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--aman-bg);
+  color: var(--aman-text);
+  font-family: 'Inter', 'Cairo', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+[dir='rtl'] body,
+.font-ar {
+  font-family: 'Cairo', 'Inter', system-ui, sans-serif;
+}
+
+.bg-radial-aman {
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(45, 212, 191, 0.14), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(91, 141, 239, 0.12), transparent 55%),
+    var(--aman-bg);
+}
+
+@keyframes aman-pulse-dot {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+.aman-pulse-dot {
+  animation: aman-pulse-dot 1.1s ease-in-out infinite;
+}
+
+@keyframes aman-shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.aman-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  background-size: 400px 100%;
+  animation: aman-shimmer 1.6s linear infinite;
+}
+
+@keyframes aman-fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.aman-fade-up {
+  animation: aman-fade-up 0.35s ease-out both;
+}
+
+/* subtle scrollbar for evidence lists / modal */
+.aman-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.aman-scroll::-webkit-scrollbar-thumb {
+  background: var(--aman-border);
+  border-radius: 8px;
+}

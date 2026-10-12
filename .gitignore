@@ -1,6 +1,11 @@
 # Large data, model and result files (GitHub limit is 100 MB per file)
 data/
 results/
+# Exception: frontend/src/data/ is real frontend source code (demo
+# example claims), not a bulk dataset directory — the pattern above
+# otherwise matches any directory literally named "data" at any depth.
+!frontend/src/data/
+!frontend/src/data/**
 *.zip
 *.safetensors
 *.bin
@@ -20,3 +25,10 @@ __pycache__/
 *.pyc
 .claude/
 .vscode/
+
+# Phase 4 (backend/frontend) local secrets — never commit real env files.
+# backend/.env.example (placeholders only) IS tracked; real .env files are not.
+.env
+.env.*
+!.env.example
+!*/.env.example
