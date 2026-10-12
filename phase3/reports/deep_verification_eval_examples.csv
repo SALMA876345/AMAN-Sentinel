@@ -1,0 +1,28 @@
+﻿sample_id,true_label,claim_preview,retrieval_success,n_evidence_retrieved,end_to_end_success,structured_output_valid,verdict,confidence,evidence_ids_cited,citation_validity,safeguard_triggered,elapsed_seconds,verdict_correct,error
+CLEAN-006985-1aa60ddff7,Real,استاد برج العرب غرق بمياه الامطار,True,5,True,True,INSUFFICIENT_EVIDENCE,0.0,[],True,True,46.3,,
+CLEAN-010813-d617d50326,Fake,"#فيروس_كورونا
+
+شعب ايطاليا يسجد في الشوارع طلبا للرحمه https",True,5,True,True,SUPPORTED,1.0,"['ev_05873', 'ev_00131', 'ev_04389', 'ev_05987', 'ev_04266']",True,False,30.2,False,
+CLEAN-019553-27c98aedd4,Real,شاهد: ضبط مصنع يحول زيت السيارات إلى عسل,True,5,True,True,SUPPORTED,1.0,"['ev_07351', 'ev_07555', 'ev_05905', 'ev_01028', 'ev_04748']",True,False,59.3,True,
+CLEAN-002844-7b00d384b8,Real,صلاة العيد مايحتاج اقول وين   طيب السؤال القبله على كيف مين ,True,5,True,True,SUPPORTED,1.0,"['ev_04587', 'ev_00574', 'ev_01336', 'ev_03286', 'ev_00773']",True,False,30.7,True,
+CLEAN-017781-fa8e718939,Fake,15 مايو 2023   اشاعات يتم تداولها في اعلام غربي  عن وفاة جور,True,5,True,True,SUPPORTED,1.0,"['ev_01502', 'ev_03418', 'ev_05460', 'ev_01834', 'ev_02412']",True,False,20.2,False,
+CLEAN-003067-c716462a6f,Fake,باريس تشتعل ..  اعمال عنف و تخريب اعتراضا علي مساعدة اوكراني,True,5,True,True,INSUFFICIENT_EVIDENCE,0.0,[],True,True,31.2,,
+CLEAN-012342-fddc5b449a,Real,وفاة الفنانة شادية بعد صراع مع المرض عن عمر 86 عاما أعلن الت,True,5,True,True,INSUFFICIENT_EVIDENCE,0.0,[],True,True,101.2,,
+CLEAN-005699-b3040d8c2e,Fake,وفاة الفنان السعودي يوسف الجراح قامت أخبار24 بتحديث سياسة ال,True,5,False,,,,,,,,,timed out
+CLEAN-018596-b738362110,Real,القبض على مشعوذ أفريقي حضر مباراة النصر في الأحساء ومعه طلاس,True,5,True,True,SUPPORTED,1.0,"['ev_01070', 'ev_02383', 'ev_05330', 'ev_05457', 'ev_07024']",True,False,7336.8,True,
+CLEAN-019853-30da71457a,Fake,بالموسيقى الجنائزية الحزينة.. نباتيون في بريطانيا يضعون الزه,True,5,True,True,INSUFFICIENT_EVIDENCE,0.0,[],True,True,34.4,,
+CLEAN-008600-f38cff0d4a,Fake,اشتباكات عنيفة الآن في عين الحلوة,True,5,True,True,INSUFFICIENT_EVIDENCE,0.0,[],True,True,43.1,,
+CLEAN-000144-8839debd2c,Fake,أُصيب المعلق الجزائري حفيظ دراجي أحدث المطبعين مع نظام الأسد,True,5,True,True,SUPPORTED,1.0,"['ev_06941', 'ev_03058', 'ev_03461', 'ev_03429', 'ev_05569']",True,False,49.7,False,
+CLEAN-016053-1de58c5d42,Real,عبدالحق نوري يستفيق بعد غيبوبة إمتدت لأكثر لسنتين التفاصيل:,True,5,True,True,SUPPORTED,1.0,"['ev_01694', 'ev_03545', 'ev_01667', 'ev_06047', 'ev_03984']",True,False,19.7,True,
+CLEAN-003091-2a0e353ab6,Real,لا صحة للخبر بعنوان «الرئيس الصيني يزور المساجد ويرجوا من ال,True,5,True,True,SUPPORTED,1.0,"['ev_01662', 'ev_00809', 'ev_01753', 'ev_01718', 'ev_07918']",True,False,43.1,True,
+CLEAN-012609-e59cb0b79f,Fake,جورج سوروس ...أحد كهنة المعبد السه..يو ماسو..نية..توفي بنوبة,True,5,True,True,SUPPORTED,1.0,"['ev_06273', 'ev_05345', 'ev_07586', 'ev_03989', 'ev_01080']",True,False,46.1,False,
+CLEAN-018666-f3c063a58c,Fake,استقبال عيدروس الزبيدي في حضرموت,True,5,True,True,SUPPORTED,1.0,"['ev_01439', 'ev_00560', 'ev_00278', 'ev_01122', 'ev_07308']",True,False,16.1,False,
+CLEAN-004802-ca86756757,Fake,مشاركة مصري في هجمات باريس كشف صالح فرهود، رئيس الجالية المص,True,5,True,True,INSUFFICIENT_EVIDENCE,0.0,[],True,True,41.7,,
+CLEAN-015028-3cc6d28ee5,Real,آخر المعلومات حول #الحمل و #الكورونا والانتقال العامودي و #ا,True,5,True,True,SUPPORTED,1.0,"['ev_01129', 'ev_00118', 'ev_00813', 'ev_05426', 'ev_00189']",True,False,25915.4,True,
+CLEAN-007620-43ef653dad,Real,رسميا ساديو ماني لاعبا لنادي بايرن ميونخ حتي ٢٠٢٥,True,5,True,True,SUPPORTED,1.0,['ev_03531'],True,False,79.9,True,
+CLEAN-017523-2c0e3a3502,Fake,كريم بنزيما يصبح ثاني لاعب في تاريخ ريال مدريد يسجل هاتريك ف,True,5,True,True,SUPPORTED,1.0,"['ev_00111', 'ev_02602', 'ev_03219', 'ev_04314', 'ev_04479']",True,False,25.1,False,
+CLEAN-010747-4b0627d038,Real,جورج اسحاق يقول 30 يونيو نهاية الاسلام في مصر ظهرت حقيقة الح,True,5,True,True,INSUFFICIENT_EVIDENCE,0.0,[],True,True,44.6,,
+CLEAN-011077-d75339f82e,Real,عاجل   طائرة المنتخب السعودي تصل إلى قطر للمشاركة في نهائيات,True,5,True,True,SUPPORTED,1.0,"['ev_07757', 'ev_01647', 'ev_07336', 'ev_00144', 'ev_00392']",True,False,19.9,True,
+CLEAN-001432-30f17f164c,Real,فَلَمْ تَقْتُلُوهُمْ وَلَٰكِنَّ اللَّهَ قَتَلَهُمْ ۚ وَمَا ر,True,5,True,True,INSUFFICIENT_EVIDENCE,0.0,[],True,True,59.3,,
+CLEAN-019871-f9c8562bf3,Real,وأوضح المركز الإعلامي، في بيان له، أنه قام بالتواصل مع وزارة,True,5,True,True,SUPPORTED,1.0,"['ev_07451', 'ev_05281', 'ev_05868', 'ev_04701', 'ev_03245']",True,False,81.7,True,
+CLEAN-016307-52c65d41bb,Fake,غارات جوية أمريكية ينفذها الطيران الحـ.ـربي الأمريكي الآن عل,True,5,True,True,INSUFFICIENT_EVIDENCE,0.0,[],True,True,121.1,,

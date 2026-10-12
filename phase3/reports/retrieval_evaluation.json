@@ -1,0 +1,263 @@
+{
+  "methodology": {
+    "corpus": "TRAIN + VALIDATION evidence_text only, deduped by evidence_norm (8250 unique passages). TEST evidence is never indexed.",
+    "queries": "TEST split claim_text only (held out, never used to tune anything).",
+    "ground_truth": "A query's gold document is its own evidence_norm string, looked up in the corpus. Queries whose gold evidence is absent from the TRAIN+VALIDATION corpus are excluded (metric undefined), not scored as misses. See module docstring for the full native-vs-backfilled explanation.",
+    "native_vs_backfilled": "native = AraStance (independently-authored article per claim, genuine ground truth). backfilled = VERA-ARAB / ArCOV19-tweets / ArCOV19-claims (evidence_text was itself selected by a prior TF-IDF retrieval step during Phase 1 restoration -- weaker evidence of true relevance; see hackathon/restore_claim_training_fast.py).",
+    "structural_finding": "0 of 169 AraStance / 0 of 638 ArCOV19(-tweets/-claims) TEST rows have their gold evidence present in the TRAIN+VALIDATION corpus (each claim's article is essentially unique, never reused across claims/splits) vs. 1428 of 3193 (44.7%) for VERA-ARAB (evidence drawn from a shared, reusable passage pool). Consequently NATIVE metrics below are N=0 (not computable under the leakage-respecting corpus constraint), and 'backfilled'/'pooled' numbers are, in effect, VERA-ARAB-only numbers. This is reported explicitly rather than pooling it away.",
+    "recall_hitrate_equivalence": "Every query has exactly one gold relevant document, so Recall@K and HitRate@K are numerically identical here; both are reported for completeness, not as independent signals.",
+    "k_values": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "rrf_k": 60,
+    "hybrid_weighted_weights": {
+      "bm25_weight": 0.5,
+      "dense_weight": 0.5
+    },
+    "dense_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "sample_reduction": "Evaluable TEST queries (gold evidence present in TRAIN+VALIDATION corpus) = 1428 of 4000 total TEST rows. Of these, 0 are native (AraStance) and 1428 are backfilled (VERA-ARAB / ArCOV19-tweets / ArCOV19-claims). To stay within the ~20-30 minute compute budget for this hackathon task, the backfilled-evaluable pool was downsampled with a FIXED SEED (42) from 1428 to 500 queries (cap=500). The native-evaluable pool (0) was used in full (no reduction needed).",
+    "sample_size_used": {
+      "native": 0,
+      "backfilled": 500
+    },
+    "seed": 42,
+    "validation_only_tuning_check": {
+      "n_probe": 80,
+      "hybrid_weighted_mrr": 0.3234154045245886,
+      "hybrid_rrf_mrr": 0.2875583714381699,
+      "decision": "kept existing defaults (bm25_weight=0.5, dense_weight=0.5, RRF k=60); no strong validation-set signal to justify retuning within the hackathon time budget"
+    },
+    "eval_wallclock_seconds": 93.5
+  },
+  "coverage_by_source": [
+    {
+      "source": "ArCOV19-claims",
+      "n_total": 31,
+      "n_evaluable": 0
+    },
+    {
+      "source": "ArCOV19-tweets",
+      "n_total": 607,
+      "n_evaluable": 0
+    },
+    {
+      "source": "AraStance",
+      "n_total": 169,
+      "n_evaluable": 0
+    },
+    {
+      "source": "VERA-ARAB",
+      "n_total": 3193,
+      "n_evaluable": 1428
+    }
+  ],
+  "metrics": {
+    "bm25": {
+      "native": {
+        "n": 0,
+        "recall_at_k": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "hitrate_at_k": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr": null,
+        "note": "no evaluable queries (gold evidence not present in TRAIN+VALIDATION corpus)"
+      },
+      "backfilled": {
+        "n": 500,
+        "recall_at_k": {
+          "1": 0.026,
+          "3": 0.04,
+          "5": 0.076,
+          "10": 0.14
+        },
+        "hitrate_at_k": {
+          "1": 0.026,
+          "3": 0.04,
+          "5": 0.076,
+          "10": 0.14
+        },
+        "mrr": 0.061844274279710905
+      },
+      "pooled": {
+        "n": 500,
+        "recall_at_k": {
+          "1": 0.026,
+          "3": 0.04,
+          "5": 0.076,
+          "10": 0.14
+        },
+        "hitrate_at_k": {
+          "1": 0.026,
+          "3": 0.04,
+          "5": 0.076,
+          "10": 0.14
+        },
+        "mrr": 0.061844274279710905
+      }
+    },
+    "dense": {
+      "native": {
+        "n": 0,
+        "recall_at_k": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "hitrate_at_k": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr": null,
+        "note": "no evaluable queries (gold evidence not present in TRAIN+VALIDATION corpus)"
+      },
+      "backfilled": {
+        "n": 500,
+        "recall_at_k": {
+          "1": 0.018,
+          "3": 0.064,
+          "5": 0.092,
+          "10": 0.144
+        },
+        "hitrate_at_k": {
+          "1": 0.018,
+          "3": 0.064,
+          "5": 0.092,
+          "10": 0.144
+        },
+        "mrr": 0.05962858732224488
+      },
+      "pooled": {
+        "n": 500,
+        "recall_at_k": {
+          "1": 0.018,
+          "3": 0.064,
+          "5": 0.092,
+          "10": 0.144
+        },
+        "hitrate_at_k": {
+          "1": 0.018,
+          "3": 0.064,
+          "5": 0.092,
+          "10": 0.144
+        },
+        "mrr": 0.05962858732224488
+      }
+    },
+    "hybrid_weighted": {
+      "native": {
+        "n": 0,
+        "recall_at_k": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "hitrate_at_k": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr": null,
+        "note": "no evaluable queries (gold evidence not present in TRAIN+VALIDATION corpus)"
+      },
+      "backfilled": {
+        "n": 500,
+        "recall_at_k": {
+          "1": 0.028,
+          "3": 0.054,
+          "5": 0.092,
+          "10": 0.176
+        },
+        "hitrate_at_k": {
+          "1": 0.028,
+          "3": 0.054,
+          "5": 0.092,
+          "10": 0.176
+        },
+        "mrr": 0.07230450500138719
+      },
+      "pooled": {
+        "n": 500,
+        "recall_at_k": {
+          "1": 0.028,
+          "3": 0.054,
+          "5": 0.092,
+          "10": 0.176
+        },
+        "hitrate_at_k": {
+          "1": 0.028,
+          "3": 0.054,
+          "5": 0.092,
+          "10": 0.176
+        },
+        "mrr": 0.07230450500138719
+      }
+    },
+    "hybrid_rrf": {
+      "native": {
+        "n": 0,
+        "recall_at_k": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "hitrate_at_k": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr": null,
+        "note": "no evaluable queries (gold evidence not present in TRAIN+VALIDATION corpus)"
+      },
+      "backfilled": {
+        "n": 500,
+        "recall_at_k": {
+          "1": 0.022,
+          "3": 0.066,
+          "5": 0.108,
+          "10": 0.202
+        },
+        "hitrate_at_k": {
+          "1": 0.022,
+          "3": 0.066,
+          "5": 0.108,
+          "10": 0.202
+        },
+        "mrr": 0.07870058920342678
+      },
+      "pooled": {
+        "n": 500,
+        "recall_at_k": {
+          "1": 0.022,
+          "3": 0.066,
+          "5": 0.108,
+          "10": 0.202
+        },
+        "hitrate_at_k": {
+          "1": 0.022,
+          "3": 0.066,
+          "5": 0.108,
+          "10": 0.202
+        },
+        "mrr": 0.07870058920342678
+      }
+    }
+  }
+}

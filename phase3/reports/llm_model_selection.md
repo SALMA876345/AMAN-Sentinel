@@ -1,0 +1,18 @@
+# Production LLM Selection — Phase 3 Verification Layer
+
+## Decision: Qwen2.5-7B-Instruct
+
+For AMAN Sentinel's production evidence-grounded verification layer, the recommended model is **Qwen2.5-7B-Instruct** (Alibaba, Apache 2.0 license), served via **vLLM on ROCm** on AMD Instinct hardware.
+
+## Why this model, over Jais-13B-chat and Llama-3.1-8B-Instruct
+
+AMAN's claims are Arabic-first but genuinely mixed-language (the clean split itself mixes MSA, Arabic dialect, and English/Arabic code-switched text — see `hackathon/data/clean_split/source_binary_validation.csv`), and the verification task needs the model to read a claim plus several evidence passages (often 300–800 tokens each) and return strict JSON. Qwen2.5-7B-Instruct was trained on a large multilingual corpus with explicit Arabic coverage, has a native **128K context window** (comfortably fits claim + 5-10 evidence passages with room to spare, unlike Llama-3.1-8B's nominal 128K-but-weaker-at-long-context behavior for non-English text), and is widely reported to have strong structured-output / instruction-following reliability — important since the output here is machine-parsed JSON that must survive programmatic validation, not just look plausible to a human. Jais-13B-chat (Core42/G42) is the most Arabic-native option and deserves serious consideration for a UAE-based hackathon, but at 13B it is roughly double the deployment cost/latency for a demo-scale service, its English and structured-JSON reliability are less battle-tested than Qwen's, and its ecosystem support for vLLM/ROCm quantization is thinner. Llama-3.1-8B-Instruct is close in size to Qwen2.5-7B and has excellent English/tooling support, but its Arabic capability is noticeably weaker than Qwen2.5's (Arabic is a lower-priority language in Llama's training mix), which matters directly for an Arabic-first misinformation tool. Qwen2.5-7B-Instruct is the best balance of Arabic quality, English quality, long context, JSON-mode reliability, and a size (7B) that is realistic to serve with good latency on a single AMD Instinct MI210/MI250/MI300 GPU for a hackathon-scale demo.
+
+## Intended production deployment path (not executed here — see `amd_investigation.md`)
+
+1. **Target hardware**: a single AMD Instinct MI210 (64GB HBM2e) or better, accessed via AMD Developer Cloud or on-prem ROCm hardware, with ROCm 6.x installed (`rocm-smi` showing the device).
+2. **Serving stack**: `vllm` built/installed with its ROCm backend (`VLLM_TARGET_DEVICE=rocm`, or the official ROCm vLLM container image), serving `Qwen/Qwen2.5-7B-Instruct` (optionally AWQ/GPTQ-quantized to int4/int8 if latency/VRAM budget requires it for the demo).
+3. **Interface**: vLLM's OpenAI-compatible HTTP server (`vllm serve Qwen/Qwen2.5-7B-Instruct --port 8000`), so `phase3/llm_provider.py` only needs an HTTP-calling provider class (e.g. an `OpenAICompatProvider` pointed at `http://<rocm-host>:8000/v1`) to switch from local dev inference to the real production backend — no changes needed to `phase3/verification_llm.py`, since the provider abstraction is the seam designed for exactly this swap.
+4. **Validation before go-live**: re-run the same 10-15-example smoke test (and ideally the full validation split) against the real vLLM/ROCm endpoint and confirm schema-validity and citation-validity rates match or exceed what was observed with the local dev provider in `phase3/reports/llm_smoketest_results.json`.
+
+This deployment is **designed but not executed** in this phase, per the AMD investigation: this sandbox has no AMD GPU, ROCm, or AMD cloud access (Intel-only machine, confirmed in `phase3/reports/amd_investigation.md`).

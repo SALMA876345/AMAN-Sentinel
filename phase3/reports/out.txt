@@ -1,0 +1,19 @@
+=== CLEAN-011130-fd967fb14c Fake ===
+CLAIM: تقارير تؤكد موافقة مورينيو على تدريب أهلي جدة خلفا لـ موسيماني
+VERDICT: INSUFFICIENT_EVIDENCE conf= 0.0
+EXPLANATION: [SAFEGUARD] model returned CONTRADICTED without citing any evidence
+CITED: []
+
+=== CLEAN-014937-a96c94725d Fake ===
+CLAIM: أسطورة المانيا مايكل بالاك:  كيف نريد الفوز بكأس العالم للر.جال ونحن منذ أن بدأت البطوله ندعم قضيه لا تمت للر.جال بِصله . ألمانيا
+VERDICT: CONTRADICTED conf= 0.9
+EXPLANATION: 证据表明，这些国家与足球世界杯无关，也没有提及足球或德国队。因此，这些证据与CLAIM中的内容完全相反，因此可以确定证据是CONTRADICTED。
+CITED: ['own2_1', 'distract2_1', 'distract2_2']
+
+=== CLEAN-003786-f9b2c7ea99 Real ===
+CLAIM: صور.. بناء مستشفى في أيام معدودة بـ #الصين لعلاج مصابي #كورونا
+https://t.co/Pl8ydXEVye
+VERDICT: SUPPORTED conf= 0.9
+EXPLANATION: The evidence passages support the claim by mentioning that a hospital was built in China within 8 days to treat coronavirus patients, which aligns with the claim of a building a hospital in China with
+CITED: ['own5_1', 'own5_2']
+

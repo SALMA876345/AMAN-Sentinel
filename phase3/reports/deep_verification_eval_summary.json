@@ -1,0 +1,20 @@
+{
+  "sample_size": 25,
+  "escalated_fraction_of_test": 0.1265,
+  "provider_used": "OllamaProvider",
+  "end_to_end_success_rate": 0.96,
+  "retrieval_success_rate": 1.0,
+  "structured_output_validity_rate": 1.0,
+  "citation_validity_rate": 1.0,
+  "safeguard_triggered_rate": 0.375,
+  "insufficient_evidence_rate": 0.375,
+  "verdict_distribution": {
+    "SUPPORTED": 15,
+    "INSUFFICIENT_EVIDENCE": 9
+  },
+  "verdict_accuracy_when_committed": 0.6,
+  "n_committed_verdicts_scored": 15,
+  "total_wall_clock_seconds": 35535.5,
+  "sample_seed": 42,
+  "note": "Sample drawn from TEST-split rows the Phase 2 router already escalated (phase2/reports/router_decisions_test.csv), fixed seed, size capped at 25 for hackathon time budget. verdict_accuracy_when_committed excludes INSUFFICIENT_EVIDENCE rows (abstention, not a wrong answer) by design."
+}

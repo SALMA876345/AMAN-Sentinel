@@ -1,0 +1,455 @@
+{
+  "summary": {
+    "n_examples": 13,
+    "provider_used": "OllamaProvider(qwen2.5:1.5b)",
+    "schema_valid_count": 13,
+    "valid_citation_count_(no_invalid_ids)": 13,
+    "no_distractor_cited_count": 7,
+    "examples_with_safeguard_triggered": 6,
+    "verdict_distribution": {
+      "SUPPORTED": 4,
+      "INSUFFICIENT_EVIDENCE": 6,
+      "CONTRADICTED": 3
+    }
+  },
+  "examples": [
+    {
+      "row_index": 0,
+      "sample_id": "CLEAN-018953-2a2f4d1b1f",
+      "binary_label": "Real",
+      "claim": "بالفيديو: ابتلع ما في طريقه.. مشاهد غير مسبوقة لـ إعصار في الطائف    السعودية طقس السعودية صحيفة البلاد البحرين",
+      "claim_language_detected": "ar",
+      "own_evidence_ids": [
+        "own0_1",
+        "own0_2"
+      ],
+      "distractor_evidence_ids": [
+        "distract0_1",
+        "distract0_2"
+      ],
+      "elapsed_seconds": 20.36,
+      "error": null,
+      "result": {
+        "verdict": "SUPPORTED",
+        "confidence": 0.9,
+        "explanation": "الإعصار الذي يُشير إليه في الجملتين الأولى والثانية هو الإعصار في الطائف في المملكة العربية السعودية. الجملة الثالثة تشير إلى سيميوني، وهو اسم يُشير إلى الريال السعودي، الذي يُستخدم في الجملة الثانية. الجملة الرابعة تشير إلى الطرد، وهو الإعصار الذي يضرب الطائف في المملكة العربية السعودية. جميع هذه الجملات تشير إلى الإعصار في الطائف في المملكة العربية السعودية، مما يدعم الجملة الأولى التي تشير إلى الإعصار في الطائف. ",
+        "evidence_ids": [
+          "own0_1",
+          "own0_2",
+          "distract0_1",
+          "distract0_2"
+        ],
+        "claim_language": "ar",
+        "_safeguards": []
+      },
+      "cited_own_ids": [
+        "own0_1",
+        "own0_2"
+      ],
+      "cited_distractor_ids": [
+        "distract0_1",
+        "distract0_2"
+      ],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 1,
+      "sample_id": "CLEAN-011130-fd967fb14c",
+      "binary_label": "Fake",
+      "claim": "تقارير تؤكد موافقة مورينيو على تدريب أهلي جدة خلفا لـ موسيماني",
+      "claim_language_detected": "ar",
+      "own_evidence_ids": [
+        "own1_1",
+        "own1_2"
+      ],
+      "distractor_evidence_ids": [
+        "distract1_1",
+        "distract1_2"
+      ],
+      "elapsed_seconds": 18.21,
+      "error": null,
+      "result": {
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.0,
+        "explanation": "[SAFEGUARD] model returned CONTRADICTED without citing any evidence",
+        "evidence_ids": [],
+        "claim_language": "ar",
+        "_safeguards": [
+          "verdict CONTRADICTED had empty evidence_ids — force-downgraded to INSUFFICIENT_EVIDENCE"
+        ]
+      },
+      "cited_own_ids": [],
+      "cited_distractor_ids": [],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 2,
+      "sample_id": "CLEAN-014937-a96c94725d",
+      "binary_label": "Fake",
+      "claim": "أسطورة المانيا مايكل بالاك:  كيف نريد الفوز بكأس العالم للر.جال ونحن منذ أن بدأت البطوله ندعم قضيه لا تمت للر.جال بِصله . ألمانيا",
+      "claim_language_detected": "ar",
+      "own_evidence_ids": [
+        "own2_1"
+      ],
+      "distractor_evidence_ids": [
+        "distract2_1",
+        "distract2_2"
+      ],
+      "elapsed_seconds": 157.06,
+      "error": null,
+      "result": {
+        "verdict": "CONTRADICTED",
+        "confidence": 0.9,
+        "explanation": "证据表明，这些国家与足球世界杯无关，也没有提及足球或德国队。因此，这些证据与CLAIM中的内容完全相反，因此可以确定证据是CONTRADICTED。",
+        "evidence_ids": [
+          "own2_1",
+          "distract2_1",
+          "distract2_2"
+        ],
+        "claim_language": "ar",
+        "_safeguards": []
+      },
+      "cited_own_ids": [
+        "own2_1"
+      ],
+      "cited_distractor_ids": [
+        "distract2_1",
+        "distract2_2"
+      ],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 3,
+      "sample_id": "CLEAN-018685-2e849ec63f",
+      "binary_label": "Real",
+      "claim": "صور من اليمن  القوات الخاصة السعودية تلقي القبض على أمير تنظيم داعش الإرهابي باليمن، الملقب بـ أبو أسامة المهاجر والمسؤول المالي للتنظيم وعدد من أعضاء التنظيم المرافقين له",
+      "claim_language_detected": "ar",
+      "own_evidence_ids": [
+        "own3_1"
+      ],
+      "distractor_evidence_ids": [
+        "distract3_1",
+        "distract3_2"
+      ],
+      "elapsed_seconds": 16.76,
+      "error": null,
+      "result": {
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.0,
+        "explanation": "[SAFEGUARD] model returned CONTRADICTED without citing any evidence",
+        "evidence_ids": [],
+        "claim_language": "ar",
+        "_safeguards": [
+          "verdict CONTRADICTED had empty evidence_ids — force-downgraded to INSUFFICIENT_EVIDENCE"
+        ]
+      },
+      "cited_own_ids": [],
+      "cited_distractor_ids": [],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 4,
+      "sample_id": "CLEAN-000481-07d2a81538",
+      "binary_label": "Fake",
+      "claim": "الأحواز الليلة الماضية ، حدة القمع في الأحواز مقارنة بالمناطق الأخرى دائمًا أكثر شدة وعنفًا        مهسا امینی",
+      "claim_language_detected": "ar",
+      "own_evidence_ids": [
+        "own4_1",
+        "own4_2"
+      ],
+      "distractor_evidence_ids": [
+        "distract4_1",
+        "distract4_2"
+      ],
+      "elapsed_seconds": 18.91,
+      "error": null,
+      "result": {
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.0,
+        "explanation": "[SAFEGUARD] model returned CONTRADICTED without citing any evidence",
+        "evidence_ids": [],
+        "claim_language": "ar",
+        "_safeguards": [
+          "verdict CONTRADICTED had empty evidence_ids — force-downgraded to INSUFFICIENT_EVIDENCE"
+        ]
+      },
+      "cited_own_ids": [],
+      "cited_distractor_ids": [],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 5,
+      "sample_id": "CLEAN-003786-f9b2c7ea99",
+      "binary_label": "Real",
+      "claim": "صور.. بناء مستشفى في أيام معدودة بـ #الصين لعلاج مصابي #كورونا\nhttps://t.co/Pl8ydXEVye",
+      "claim_language_detected": "mixed",
+      "own_evidence_ids": [
+        "own5_1",
+        "own5_2"
+      ],
+      "distractor_evidence_ids": [
+        "distract5_1",
+        "distract5_2"
+      ],
+      "elapsed_seconds": 22.26,
+      "error": null,
+      "result": {
+        "verdict": "SUPPORTED",
+        "confidence": 0.9,
+        "explanation": "The evidence passages support the claim by mentioning that a hospital was built in China within 8 days to treat coronavirus patients, which aligns with the claim of a building a hospital in China within a few days to treat coronavirus patients. The evidence also mentions that a soccer field in Qatar was dismantled in 974 days, which is not relevant to the claim but provides context for the claim's timeframe.",
+        "evidence_ids": [
+          "own5_1",
+          "own5_2"
+        ],
+        "claim_language": "mixed",
+        "_safeguards": []
+      },
+      "cited_own_ids": [
+        "own5_1",
+        "own5_2"
+      ],
+      "cited_distractor_ids": [],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 6,
+      "sample_id": "CLEAN-013023-8f32f11fa7",
+      "binary_label": "Real",
+      "claim": "د.محمد الصفي: \" Air Doctor مايقي من كورونا\".\n@Dr_abdoty \n#AirDoctor https://t.co/v4pAZYtSJ0",
+      "claim_language_detected": "mixed",
+      "own_evidence_ids": [
+        "own6_1",
+        "own6_2"
+      ],
+      "distractor_evidence_ids": [
+        "distract6_1",
+        "distract6_2"
+      ],
+      "elapsed_seconds": 21.36,
+      "error": null,
+      "result": {
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.0,
+        "explanation": "[SAFEGUARD] model returned CONTRADICTED without citing any evidence",
+        "evidence_ids": [],
+        "claim_language": "mixed",
+        "_safeguards": [
+          "verdict CONTRADICTED had empty evidence_ids — force-downgraded to INSUFFICIENT_EVIDENCE"
+        ]
+      },
+      "cited_own_ids": [],
+      "cited_distractor_ids": [],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 7,
+      "sample_id": "CLEAN-008360-d0c4861166",
+      "binary_label": "Real",
+      "claim": "عاجل| الجزيرة: #بريطانيا تعلن إصابة رئيس وزرائها \"بوريس جونسون\" بفيروس #كورونا.\n\nhttps://t.co/DBckITlVGI\n#كوفيد19 #فيروس_كورونا https://t.co/qqZZFyjNVZ",
+      "claim_language_detected": "mixed",
+      "own_evidence_ids": [
+        "own7_1",
+        "own7_2"
+      ],
+      "distractor_evidence_ids": [
+        "distract7_1",
+        "distract7_2"
+      ],
+      "elapsed_seconds": 24.46,
+      "error": null,
+      "result": {
+        "verdict": "SUPPORTED",
+        "confidence": 1.0,
+        "explanation": "The evidence passages discuss the spread of the coronavirus in different countries, including the United Kingdom, and mention the death of a British Prime Minister, Boris Johnson, due to the coronavirus. This directly contradicts the claim that 'Britain announces that Prime Minister Boris Johnson has been infected with the coronavirus.'",
+        "evidence_ids": [
+          "own7_1",
+          "own7_2",
+          "distract7_1",
+          "distract7_2"
+        ],
+        "claim_language": "mixed",
+        "_safeguards": []
+      },
+      "cited_own_ids": [
+        "own7_1",
+        "own7_2"
+      ],
+      "cited_distractor_ids": [
+        "distract7_1",
+        "distract7_2"
+      ],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 8,
+      "sample_id": "CLEAN-017308-be834cfd2d",
+      "binary_label": "Fake",
+      "claim": "،الحجاج عام 1934 م يأتون من المغرب ليقابلوا حجاج الجزائر... ثم تونس... ثم ليبيا... ليقابلوا الحجاج المصريين ويسيروا سوياً إلى مكة المكرمة.  صورة التقطها مصور فرنسي من الجو لحجاج بيت الله  فلا جوزات ولا تأشيرات مرور ولا حتى هوية .  فريق مجاهدون",
+      "claim_language_detected": "ar",
+      "own_evidence_ids": [
+        "own8_1"
+      ],
+      "distractor_evidence_ids": [
+        "distract8_1",
+        "distract8_2"
+      ],
+      "elapsed_seconds": 21.05,
+      "error": null,
+      "result": {
+        "verdict": "CONTRADICTED",
+        "confidence": 0.9,
+        "explanation": "证据中提到的国家（如阿尔及利亚、突尼斯、利比亚和麦加）与CLAIM中的国家（如摩洛哥、阿尔及利亚、突尼斯、利比亚和麦加）不完全一致，因此证据与CLAIM内容不完全吻合。此外，CLAIM中提到的法国摄影师和埃及人团队与证据中提到的法国摄影师和美国团队不完全匹配，这进一步表明证据与CLAIM内容不一致。因此，证据不能支持CLAIM，而是与CLAIM内容相矛盾。",
+        "evidence_ids": [
+          "own8_1",
+          "distract8_1",
+          "distract8_2"
+        ],
+        "claim_language": "ar",
+        "_safeguards": []
+      },
+      "cited_own_ids": [
+        "own8_1"
+      ],
+      "cited_distractor_ids": [
+        "distract8_1",
+        "distract8_2"
+      ],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 9,
+      "sample_id": "CLEAN-008767-4b063fbe19",
+      "binary_label": "Fake",
+      "claim": "همجيةاًوروبا  شاهدوا تعامل البلجيكيين مع العرب في شوارع بروكسل .. غاية الهمجية من المجتمع البلجيكي الذين يدّعون التحضر والرقي . ونسأل المبهورين منا بالحضارة الأوروبية مارأيكم هل لازلتم منبهرين باليورو",
+      "claim_language_detected": "ar",
+      "own_evidence_ids": [
+        "own9_1",
+        "own9_2"
+      ],
+      "distractor_evidence_ids": [
+        "distract9_1",
+        "distract9_2"
+      ],
+      "elapsed_seconds": 14.44,
+      "error": null,
+      "result": {
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.0,
+        "explanation": "[SAFEGUARD] model returned CONTRADICTED without citing any evidence",
+        "evidence_ids": [],
+        "claim_language": "ar",
+        "_safeguards": [
+          "verdict CONTRADICTED had empty evidence_ids — force-downgraded to INSUFFICIENT_EVIDENCE"
+        ]
+      },
+      "cited_own_ids": [],
+      "cited_distractor_ids": [],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 10,
+      "sample_id": "CLEAN-018977-f00b84e55c",
+      "binary_label": "Real",
+      "claim": "العالم لوك مونتانييه وهو حائز على جائزة نوبل للطب يؤكد خروج #فيروس_كورونا من مختبر  صيني في ووهان\nhttps://t.co/Ag4iIEu6J3",
+      "claim_language_detected": "mixed",
+      "own_evidence_ids": [
+        "own10_1",
+        "own10_2"
+      ],
+      "distractor_evidence_ids": [
+        "distract10_1",
+        "distract10_2"
+      ],
+      "elapsed_seconds": 21.75,
+      "error": null,
+      "result": {
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "confidence": 0.0,
+        "explanation": "[SAFEGUARD] model returned CONTRADICTED without citing any evidence",
+        "evidence_ids": [],
+        "claim_language": "mixed",
+        "_safeguards": [
+          "verdict CONTRADICTED had empty evidence_ids — force-downgraded to INSUFFICIENT_EVIDENCE"
+        ]
+      },
+      "cited_own_ids": [],
+      "cited_distractor_ids": [],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 11,
+      "sample_id": "CLEAN-010349-d81cebe56f",
+      "binary_label": "Fake",
+      "claim": "مهدي دنقو تم قتله في القطرون بعد اشهر من مطاردته من قبل الجيش الليبي",
+      "claim_language_detected": "ar",
+      "own_evidence_ids": [
+        "own11_1"
+      ],
+      "distractor_evidence_ids": [
+        "distract11_1",
+        "distract11_2"
+      ],
+      "elapsed_seconds": 23.08,
+      "error": null,
+      "result": {
+        "verdict": "CONTRADICTED",
+        "confidence": 0.9,
+        "explanation": "The evidence passages do not support the claim. The claim states that 'مهدي دنقو تم قتله في القطرون بعد اشهر من مطاردته من قبل الجيش الليبي', but the evidence discusses a different person named 'المانيا' and a different country 'المانيا'. The claim also mentions 'جيش ليبيا', which is not mentioned in the evidence. Additionally, the evidence does not mention 'قطرون' or 'فيروس كورونا'. Therefore, the evidence contradicts the claim.",
+        "evidence_ids": [
+          "own11_1",
+          "distract11_1",
+          "distract11_2"
+        ],
+        "claim_language": "ar",
+        "_safeguards": []
+      },
+      "cited_own_ids": [
+        "own11_1"
+      ],
+      "cited_distractor_ids": [
+        "distract11_1",
+        "distract11_2"
+      ],
+      "invalid_cited_ids": []
+    },
+    {
+      "row_index": 12,
+      "sample_id": "CLEAN-006897-7b3683b346",
+      "binary_label": "Fake",
+      "claim": "منشورات حديثة عبر وسائل التواصل الاجتماعي، تقول إن فيروس كورونا لا يصيب مناطق المسلمين في الصين، والذي نكشف الآن عن تفاصيله و ...\n\n#فيروس_كورونا #فيروس_كورونا_لا_يصيب_مناطق_المسلمين #مناطق_المسلمين #مواقع_التواصل_الاجتماعي \n\nاقرأ المزيد من التفاصيل:\n\nhttps://t.co/ez6osUnmXp",
+      "claim_language_detected": "ar",
+      "own_evidence_ids": [
+        "own12_1",
+        "own12_2"
+      ],
+      "distractor_evidence_ids": [
+        "distract12_1",
+        "distract12_2"
+      ],
+      "elapsed_seconds": 20.8,
+      "error": null,
+      "result": {
+        "verdict": "SUPPORTED",
+        "confidence": 1.0,
+        "explanation": "The evidence passages discuss the spread of the novel coronavirus and its transmission methods, which directly contradicts the claim that the virus does not affect areas of Muslims in China. The passages indicate that the virus can be transmitted through various means, including contact with infected individuals, contaminated surfaces, and close contact with infected people, which is consistent with the claim.",
+        "evidence_ids": [
+          "own12_1",
+          "own12_2",
+          "distract12_1",
+          "distract12_2"
+        ],
+        "claim_language": "ar",
+        "_safeguards": []
+      },
+      "cited_own_ids": [
+        "own12_1",
+        "own12_2"
+      ],
+      "cited_distractor_ids": [
+        "distract12_1",
+        "distract12_2"
+      ],
+      "invalid_cited_ids": []
+    }
+  ]
+}
