@@ -1,0 +1,10 @@
+{
+  "hidden_size": 768,
+  "num_labels": 2,
+  "labels": [
+    "Real",
+    "Fake"
+  ],
+  "pooling": "mean_pool_last_hidden_state_masked",
+  "note": "Backbone parameters are frozen/unmodified from the base checkpoint; only linear_probe_head.pt was trained. Reload backbone with AutoModel.from_pretrained(this_dir), then apply mean-pooling over the masked last_hidden_state, then this Linear head."
+}

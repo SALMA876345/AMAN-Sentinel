@@ -1,0 +1,37 @@
+{
+  "n": 4000,
+  "models_used": [
+    "svm",
+    "bilstm",
+    "transformer"
+  ],
+  "individual": {
+    "svm": {
+      "accuracy": 0.8645,
+      "macro_f1": 0.8639771280803408,
+      "mcc": 0.7281461415086161
+    },
+    "bilstm": {
+      "accuracy": 0.80025,
+      "macro_f1": 0.7989060767424999,
+      "mcc": 0.5992928882976043
+    },
+    "transformer": {
+      "accuracy": 0.741,
+      "macro_f1": 0.7396123944500241,
+      "mcc": 0.47991493552671555
+    }
+  },
+  "best_individual_model": "svm",
+  "majority_vote": {
+    "accuracy": 0.83475,
+    "macro_f1": 0.8336244590671178,
+    "mcc": 0.6688463468496975
+  },
+  "weighted_vote": {
+    "accuracy": 0.83475,
+    "macro_f1": 0.8336244590671178,
+    "mcc": 0.6688463468496975
+  },
+  "recommendation": "NEITHER ensemble beats the best individual model (svm). Do not use an ensemble in production."
+}

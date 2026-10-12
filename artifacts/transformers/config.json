@@ -1,0 +1,170 @@
+{
+  "base_model_key": "marbert",
+  "base_model_name": "UBC-NLP/MARBERTv2",
+  "model_choice_reason": "MARBERT (UBC-NLP/MARBERTv2) was preferred per the Phase 2 brief and was successfully obtained (tokenizer/weights downloaded or found in local HF cache).",
+  "strategy": "frozen_linear_probe",
+  "strategy_reason": "Probe measured 12.22s/batch on the real model; extrapolated full-epoch time 10694s and 3-epoch total 32083s EXCEEDED the remaining ~2956s budget on this CPU-only machine, so full fine-tuning was judged intractable. Falling back to a frozen-backbone linear probe: all transformer parameters frozen, mean-pooled last-hidden-state embeddings cached once per split, and only a linear classification head trained on those cached features.",
+  "probe": {
+    "probe_batches_timed": 3,
+    "probe_batch_size": 16,
+    "measured_seconds_per_batch": 12.221914847691854,
+    "train_batches_per_epoch": 875,
+    "estimated_full_finetune_epoch_seconds": 10694.175491730373,
+    "estimated_full_finetune_total_seconds_for_3_epochs": 32082.52647519112,
+    "time_budget_seconds": 3000
+  },
+  "hyperparameters": {
+    "max_len": 128,
+    "claim_character_cap": 400,
+    "evidence_character_cap": 1200,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "max_epochs": 60,
+    "early_stopping_patience": 5,
+    "optimizer": "AdamW",
+    "loss": "CrossEntropyLoss",
+    "pooling_if_linear_probe": "mean_pool_last_hidden_state_masked"
+  },
+  "labels": [
+    "Real",
+    "Fake"
+  ],
+  "best_epoch": 16,
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.673916943506761,
+      "validation_macro_f1": 0.5135158001607513,
+      "elapsed_seconds": 1741.8
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.6440371833064339,
+      "validation_macro_f1": 0.663886955514134,
+      "elapsed_seconds": 1742.3
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.6245130972428755,
+      "validation_macro_f1": 0.6859335038363171,
+      "elapsed_seconds": 1742.8
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.6096291043541648,
+      "validation_macro_f1": 0.689006375369305,
+      "elapsed_seconds": 1743.3
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.598684429580515,
+      "validation_macro_f1": 0.693000749108821,
+      "elapsed_seconds": 1743.7
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.5897853396155618,
+      "validation_macro_f1": 0.6956987919242039,
+      "elapsed_seconds": 1744.1
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.581898852370002,
+      "validation_macro_f1": 0.7208231943108294,
+      "elapsed_seconds": 1744.5
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.5753780457106503,
+      "validation_macro_f1": 0.7208231943108294,
+      "elapsed_seconds": 1745.0
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.5699977091767571,
+      "validation_macro_f1": 0.7043700227125376,
+      "elapsed_seconds": 1745.4
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.5647169839252125,
+      "validation_macro_f1": 0.721964244399989,
+      "elapsed_seconds": 1745.8
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.560040144757791,
+      "validation_macro_f1": 0.7165714285714286,
+      "elapsed_seconds": 1746.3
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.5553511841730638,
+      "validation_macro_f1": 0.7276655612501256,
+      "elapsed_seconds": 1746.8
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.5513354862278158,
+      "validation_macro_f1": 0.7148803923245801,
+      "elapsed_seconds": 1747.2
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.5485831252553246,
+      "validation_macro_f1": 0.7174426322149956,
+      "elapsed_seconds": 1747.6
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.545206415924159,
+      "validation_macro_f1": 0.7209821428571428,
+      "elapsed_seconds": 1747.9
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.5415290515531194,
+      "validation_macro_f1": 0.7368537348690898,
+      "elapsed_seconds": 1748.3
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.5386768977750431,
+      "validation_macro_f1": 0.7275207119711598,
+      "elapsed_seconds": 1748.8
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.5365995035930113,
+      "validation_macro_f1": 0.728181022327879,
+      "elapsed_seconds": 1749.2
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.5336878091096878,
+      "validation_macro_f1": 0.717819109780635,
+      "elapsed_seconds": 1749.6
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.5313567465001886,
+      "validation_macro_f1": 0.7180548868560424,
+      "elapsed_seconds": 1750.0
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.5295742078260942,
+      "validation_macro_f1": 0.7353803302907111,
+      "elapsed_seconds": 1750.5
+    }
+  ],
+  "device_trained_on": "cpu",
+  "total_wall_clock_seconds": 1804.6,
+  "data_source": "hackathon/data/clean_split/",
+  "validation_metrics_at_best_epoch": {
+    "accuracy": 0.738,
+    "macro_f1": 0.7368537348690898,
+    "mcc": 0.4753256826425535
+  }
+}

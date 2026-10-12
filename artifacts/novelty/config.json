@@ -1,0 +1,25 @@
+{
+  "model_name": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "text_representation": {
+    "column": "claim_norm",
+    "reasoning": "Embeds claim_norm only, not evidence_norm. Novelty of the INPUT CLAIM is what matters for routing decisions. The evidence_norm field in this restored dataset is retrieval-backfilled for many rows (see hackathon/restore_claim_training_fast.py), so including it would partly measure retrieval-corpus coverage rather than genuine claim novelty."
+  },
+  "k": 10,
+  "distance_metric": "cosine",
+  "distance_metric_note": "mean cosine distance (1 - cosine_similarity) to the k nearest neighbors in the TRAIN reference embedding set. Embeddings are L2-normalized by SentenceTransformer.encode(normalize_embeddings=True), so this is a monotonic transform of Euclidean distance on normalized vectors; cosine was used directly since it is sklearn.neighbors.NearestNeighbors' native metric name for it.",
+  "reference_split": "hackathon/data/clean_split/source_binary_train.csv (claim_norm column, all rows, TRAIN ONLY)",
+  "random_seed": 42,
+  "thresholds": {
+    "lower_percentile": 80.0,
+    "upper_percentile": 95.0,
+    "lower_value": 0.2756432294845581,
+    "upper_value": 0.37131229043006897,
+    "derivation": "Computed from percentiles of the UNSUPERVISED novelty_score distribution over the VALIDATION split only (task_label was never consulted). score < lower_value -> FAMILIAR; lower_value <= score < upper_value -> MODERATELY NOVEL; score >= upper_value -> HIGHLY NOVEL."
+  },
+  "category_labels": [
+    "FAMILIAR",
+    "MODERATELY NOVEL",
+    "HIGHLY NOVEL"
+  ],
+  "warning": "novelty_score / novelty_category are OOD/unfamiliarity signals, NOT misinformation scores. HIGHLY NOVEL does not mean 'Fake'; FAMILIAR does not mean 'Real'. task_label was never used to fit the reference distribution or the thresholds."
+}

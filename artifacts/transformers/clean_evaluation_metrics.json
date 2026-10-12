@@ -1,0 +1,54 @@
+{
+  "test_metrics": {
+    "n": 4000,
+    "accuracy": 0.741,
+    "macro_precision": 0.740716281573522,
+    "macro_recall": 0.739201045974185,
+    "macro_f1": 0.7396123944500241,
+    "weighted_f1": 0.7405913216530893,
+    "mcc": 0.47991493552671555,
+    "labels": [
+      "Real",
+      "Fake"
+    ],
+    "classification_report": {
+      "Real": {
+        "precision": 0.7377139701822197,
+        "recall": 0.7042698998418555,
+        "f1-score": 0.7206040992448759,
+        "support": 1897.0
+      },
+      "Fake": {
+        "precision": 0.7437185929648241,
+        "recall": 0.7741321921065145,
+        "f1-score": 0.7586206896551724,
+        "support": 2103.0
+      },
+      "accuracy": 0.741,
+      "macro avg": {
+        "precision": 0.740716281573522,
+        "recall": 0.739201045974185,
+        "f1-score": 0.7396123944500241,
+        "support": 4000.0
+      },
+      "weighted avg": {
+        "precision": 0.740870900610174,
+        "recall": 0.741,
+        "f1-score": 0.7405913216530893,
+        "support": 4000.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        1336,
+        561
+      ],
+      [
+        475,
+        1628
+      ]
+    ]
+  },
+  "test_rows": 4000,
+  "calibration_note": "These confidence/probability values come directly from the trained classifier head's softmax output (raw softmax over 2 classes). They are NOT temperature-scaled or otherwise post-hoc calibrated -- that calibration step, if any, happens later in Phase 2 and is out of scope for this script. Treat 'confidence'/'prob_real'/'prob_fake' in the predictions CSVs as pre-calibration raw softmax outputs."
+}

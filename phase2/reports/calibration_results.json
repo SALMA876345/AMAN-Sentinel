@@ -1,0 +1,38 @@
+[
+  {
+    "model": "svm",
+    "method": "platt_sigmoid_scaling",
+    "fit_on": "validation (2000 rows)",
+    "evaluated_on": "test (4000 rows)",
+    "ece_before": 0.03597285956686096,
+    "ece_after": 0.09585775681383583,
+    "brier_before": 0.10265112907214378,
+    "brier_after": 0.11510701066614078,
+    "calibrator_params": {
+      "a": 7.300739211847455,
+      "b": 0.20640933987737126
+    }
+  },
+  {
+    "model": "bilstm",
+    "method": "temperature_scaling",
+    "fit_on": "validation (2000 rows)",
+    "evaluated_on": "test (4000 rows)",
+    "ece_before": 0.030806535556912415,
+    "ece_after": 0.02438966838931093,
+    "brier_before": 0.14164786202666205,
+    "brier_after": 0.1411800132438287,
+    "temperature": 1.0624358735699397
+  },
+  {
+    "model": "transformer",
+    "method": "temperature_scaling (z recovered from log-prob difference)",
+    "fit_on": "validation",
+    "evaluated_on": "test",
+    "ece_before": 0.06797277531027797,
+    "ece_after": 0.016836977054928502,
+    "brier_before": 0.1819170955348138,
+    "brier_after": 0.17704242212419252,
+    "temperature": 0.6837355581191532
+  }
+]
