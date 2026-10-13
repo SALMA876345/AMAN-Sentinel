@@ -16,3 +16,17 @@ rank-bm25>=0.2
 # Visualisation (optional, used in evaluate_all_models.py)
 matplotlib>=3.7
 seaborn>=0.12
+
+# Scientific utilities used throughout hackathon/, phase2/, phase3/
+# (model persistence, softmax/calibration math) -- transitive deps of the
+# packages above but relied on directly in several scripts, so pinned
+# explicitly rather than left implicit.
+joblib>=1.3
+scipy>=1.10
+
+# AMAN Sentinel backend (Phase 4) -- FastAPI service wrapping
+# phase3.aman_pipeline.verify_content(). Needed to run `uvicorn
+# backend.main:app`; see backend/.env.example for runtime configuration.
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2.6
