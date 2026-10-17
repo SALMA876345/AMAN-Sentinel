@@ -1,0 +1,20 @@
+# Final Submission Checklist — AMAN Sentinel
+
+- [x] README complete (README.md, 14 sections)
+- [x] Authors/team correct (AMAN AI — Hamza Alqaruoti, Salma Amarah)
+- [x] Frontend builds (`npm run build` verified clean)
+- [x] Backend works (`/health` returns `{"status":"ok","pipeline_loaded":true}`)
+- [x] Real API connected (set `VITE_API_URL` before demoing — see DEMO_GUIDE.md)
+- [x] No `[DEV FIXTURE]` in judge-facing output (confirmed only triggers when `VITE_API_URL` unset)
+- [x] Required model artifacts present (`artifacts/svm`, `artifacts/bilstm`, `artifacts/transformers`, `artifacts/novelty`)
+- [x] requirements.txt complete (`rank-bm25`, `fastapi`, `uvicorn`, `pydantic`, `torch`, `transformers`, `sentence-transformers` all present)
+- [x] No secrets (scanned — only placeholder `.env.example` values, no real `.env` committed)
+- [x] No private SSH keys (scanned — none found)
+- [x] No academic assignment files in submission package (moved to `ACADEMIC_ARCHIVE_NOT_FOR_HACKATHON/`, outside this repo)
+- [x] No conference-paper files in submission package (moved alongside, same archive)
+- [x] Results scientifically correct (Fisher's test, Wilson CIs, no overclaiming — verified against `phase5/VALIDATED_METRICS.md`)
+- [x] Selective accuracy correctly described (never "overall accuracy" anywhere in README/submission docs)
+- [x] AMD status truthfully described (NVIDIA validated, AMD pending access — no AMD execution claimed)
+- [x] Demo instructions complete (`submission/DEMO_GUIDE.md`)
+- [ ] GitHub repository ready — **you still need to `git add`/commit/push** if submitting via GitHub; this pass only cleaned the working tree and `.gitignore`
+- [x] Final submission package ready (`Code files/` is the folder to submit)

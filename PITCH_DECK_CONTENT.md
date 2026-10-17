@@ -91,9 +91,10 @@ Slide-by-slide content for the AMAN Sentinel pitch deck. Every metric is pulled 
 - Production target: Qwen2.5-7B-Instruct served via vLLM on AMD Instinct MI300X, through ROCm
 - Provider abstraction already built with a ready-to-flip switch to the AMD-hosted model
 - Development today runs on a small local model (`qwen2.5:1.5b` via Ollama, CPU-only) so the full pipeline could be built and demoed without AMD hardware access
+- AMAN Sentinel has been validated end-to-end with Qwen2.5-7B-Instruct on a university NVIDIA GPU environment. The AMD deployment path is prepared for AMD Instinct MI300X using ROCm and vLLM and remains pending final AMD execution.
 - **AMD production deployment prepared; final MI300X validation pending cloud-credit activation.**
 
-**Speaker note:** Say this status line exactly as written — do not imply a run happened.
+**Speaker note:** Say the AMD status line exactly as written — do not imply an AMD run happened. The NVIDIA line is real end-to-end execution evidence on different hardware (university NVIDIA GPU via Ollama) — keep it clearly separate from the still-pending AMD/ROCm/MI300X run.
 
 ---
 

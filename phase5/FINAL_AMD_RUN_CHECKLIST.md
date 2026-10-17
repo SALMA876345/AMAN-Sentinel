@@ -4,6 +4,8 @@
 
 **Before you start:** read `phase4/reports/amd_deployment_instructions.md` for the full reasoning behind each step (model choice, why ROCm, etc.). This checklist is the condensed, ordered, check-the-box version of that document plus the application-level steps (backend/frontend/tests) it doesn't cover.
 
+**Note — NVIDIA execution-path validation already completed:** the end-to-end request path this checklist exercises (FastAPI → classifiers → novelty detector → trust router → retrieval → deep verification → LLM → safeguards) has already been run successfully, start to finish, on NVIDIA GPU hardware (university GPU server, via Ollama) — see `phase5/reports/UNIVERSITY_GPU_VALIDATION.md`. That reduces execution risk for the AMD run below but is NOT AMD/ROCm/MI300X validation and does not complete any step of this checklist. Every item below remains unchecked and pending until actually run on real AMD hardware.
+
 ---
 
 - [ ] **1. Confirm the $100 credit appears** in the AMD Developer Cloud account dashboard. Do not proceed until the balance is visible and active.

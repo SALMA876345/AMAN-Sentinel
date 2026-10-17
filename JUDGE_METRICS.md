@@ -61,4 +61,12 @@ At the selected **80% target coverage** operating point:
 
 ---
 
+## NVIDIA GPU End-to-End Validation
+
+**Completed.** AMAN Sentinel has been validated end-to-end with Qwen2.5-7B-Instruct on a university NVIDIA GPU environment (NVIDIA GB10, CUDA 13.0, via Ollama — `ollama ps` confirmed 100% GPU utilization). Two real claims were run through the full pipeline (FastAPI → classifiers → novelty detector → trust router → retrieval → deep verification → LLM → safeguards); both correctly returned INSUFFICIENT_EVIDENCE rather than fabricating a verdict. This is execution validation, not a labeled accuracy benchmark — no accuracy percentage is claimed for it. The AMD deployment path is prepared for AMD Instinct MI300X using ROCm and vLLM and remains pending final AMD execution.
+
+Full detail: `phase5/reports/UNIVERSITY_GPU_VALIDATION.md`.
+
+---
+
 *Footnote: a separate, limited development-model deep-verification experiment using `qwen2.5:1.5b` measured 60% verdict accuracy on a 25-example held-out sample where the model committed to a verdict. This is a small-sample development-model result, not a system-level accuracy claim, and is intentionally excluded from the table above.*

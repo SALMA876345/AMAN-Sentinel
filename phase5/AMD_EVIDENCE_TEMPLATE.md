@@ -2,6 +2,8 @@
 
 **Fill this in during and immediately after running `phase5/FINAL_AMD_RUN_CHECKLIST.md`. Every field below is a placeholder until a real AMD run happens — do not fill in any field with an invented value. An unfilled field is more honest than a guessed one.**
 
+**Note — separate NVIDIA validation, not AMD evidence:** a real end-to-end execution-path validation has separately been completed on **NVIDIA** GPU hardware (university GPU server, NVIDIA GB10, via Ollama) — see `phase5/reports/UNIVERSITY_GPU_VALIDATION.md`. That run is NOT AMD/ROCm/MI300X and is documented in its own report, not here. Every field in this template remains specifically about the still-pending AMD run and stays unfilled until that run actually happens.
+
 ---
 
 ## Hardware / environment

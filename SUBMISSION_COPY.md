@@ -72,6 +72,8 @@ AMAN Sentinel separates "can this be resolved cheaply and reliably" from "does t
 
 AMAN Sentinel's production LLM path is designed to run Qwen2.5-7B-Instruct via vLLM on AMD Instinct MI300X hardware through ROCm. The code already includes a ready-to-flip provider switch so the system can move from its local development LLM to the AMD-hosted production model without any pipeline redesign.
 
+AMAN Sentinel has been validated end-to-end with Qwen2.5-7B-Instruct on a university NVIDIA GPU environment. The AMD deployment path is prepared for AMD Instinct MI300X using ROCm and vLLM and remains pending final AMD execution. Full detail: `phase5/reports/UNIVERSITY_GPU_VALIDATION.md`.
+
 **AMD production deployment prepared; final MI300X validation pending cloud-credit activation.**
 
 Development today runs entirely on CPU (Intel) using a small local model (`qwen2.5:1.5b` via Ollama) specifically so the full pipeline could be built, tested, and demonstrated end-to-end before any AMD hardware access was available. No AMD run, ROCm execution, or AMD performance number is claimed anywhere in this project.
@@ -129,6 +131,8 @@ Development today runs entirely on CPU (Intel) using a small local model (`qwen2
 | Hybrid-RRF (k=60) — selected | 0.108 | 0.202 | 0.0787 |
 
 **Testing** — 63/63 tests passing (44 Phase 1-3 unittest + 19 Phase 4 pytest), plus 3 gated slow end-to-end tests independently run and confirmed passing.
+
+**NVIDIA GPU end-to-end validation** — completed; see `phase5/reports/UNIVERSITY_GPU_VALIDATION.md`.
 
 **AMD status** — AMD production deployment prepared; final MI300X validation pending cloud-credit activation.
 

@@ -167,25 +167,31 @@ class LocalSmallModelProvider(LLMProvider):
 class OllamaProvider(LLMProvider):
     """Calls a local Ollama server's HTTP API.
 
-    Found reachable on this machine at http://localhost:11434 with
-    qwen2.5:1.5b already pulled (see phase3/reports/amd_investigation.md).
-    This is the provider actually used for this phase's smoke test: it is a
-    genuinely small (1.5B) open instruct model, running locally on CPU, with
-    no download wait and no network flakiness risk, which was the most
-    reliable option actually available within the time budget.
+    Default model is qwen2.5:7b-instruct -- the intended primary verifier
+    for the final AMAN Sentinel submission/demo (validated end-to-end on
+    NVIDIA GPU infrastructure, see phase5/reports/UNIVERSITY_GPU_VALIDATION.md).
+    qwen2.5:1.5b was the earlier development-phase default (see
+    phase3/reports/amd_investigation.md) and remains available via
+    OLLAMA_MODEL or the constructor argument; the historical 1.5B-vs-7B
+    experimental comparison in phase6/CONFERENCE_RESULTS_AUDIT_FINAL.md and
+    phase5/VALIDATED_METRICS.md is unaffected by this default -- those
+    results were produced by explicitly constructing each model and are
+    not re-derived from this default.
     """
 
     def __init__(
         self,
-        model_name: str = "qwen2.5:1.5b",
+        model_name: Optional[str] = None,
         host: Optional[str] = None,
         timeout: float = 120.0,
         max_new_tokens: int = 350,
     ) -> None:
+        # model_name param (if passed explicitly) wins; otherwise OLLAMA_MODEL
+        # env var; otherwise the default production/demo verifier.
+        self.model_name = model_name or os.environ.get("OLLAMA_MODEL", "qwen2.5:7b-instruct")
         # host param (if passed explicitly) wins; otherwise fall back to
         # OLLAMA_HOST env var (added for Phase 4's env-driven deployment
         # config), then the original hardcoded local default.
-        self.model_name = model_name
         self.host = (host or os.environ.get("OLLAMA_HOST", "http://localhost:11434")).rstrip("/")
         self.timeout = timeout
         self.max_new_tokens = max_new_tokens
